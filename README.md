@@ -1,18 +1,24 @@
-## Sensu-Plugins-disk-checks
+## Sensu-Plugins-rabbitmq
 
-[![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-rabbitmq.svg?branch=master)][1]
-[![Gem Version](https://badge.fury.io/rb/sensu-plugins-rabbitmq.svg)][2]
-[![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq/badges/gpa.svg)][3]
-[![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq/badges/coverage.svg)][4]
-[![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-rabbitmq.svg)][5]
+[![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-rabbitmq.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-rabbitmq)
+[![Gem Version](https://badge.fury.io/rb/sensu-plugins-rabbitmq.svg)](http://badge.fury.io/rb/sensu-plugins-rabbitmq)
+[![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq)
+[![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-rabbitmq)
+[![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-rabbitmq.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-rabbitmq)
 
 ## Functionality
 
 ## Files
- *
- *
- *
- *
+ * bin/check-rabbitmq-alive
+ * bin/check-rabbitmq-amqp-alive
+ * bin/check-rabbitmq-cluster-health
+ * bin/check-rabbitmq-consumers
+ * bin/check-rabbitmq-messages
+ * bin/check-rabbitmq-node-health
+ * bin/check-rabbitmq-queue
+ * bin/check-rabbitmq-stomp-alive
+ * bin/metrics-rabbitmq-overview
+ * bin/metrics-rabbitmq-queue
 
 ## Usage
 
