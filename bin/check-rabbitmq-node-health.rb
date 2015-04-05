@@ -29,7 +29,7 @@ require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
 
-class CheckRabbitMQNode < Sensu::Plugin::Check::CLI
+class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ host',
          short: '-w',
