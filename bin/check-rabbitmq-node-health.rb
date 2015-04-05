@@ -4,11 +4,20 @@
 # RabbitMQ check node health plugin
 # ===
 #
+# DESCRIPTION:
 # This plugin checks if RabbitMQ server node is in a running state.
 #
 # The plugin is based on the RabbitMQ cluster node health plugin by Tim Smith
 #
+# PLATFORMS:
+#   Linux, Windows, BSD, Solaris
 #
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: rest-client
+#
+# LICENSE:
 # Copyright 2012 Abhijith G <abhi@runa.com> and Runa Inc.
 # Copyright 2014 Tim Smith <tim@cozy.co> and Cozy Services Ltd.
 # Copyright 2015 Edward McLain <ed@edmclain.com> and Daxko, LLC.

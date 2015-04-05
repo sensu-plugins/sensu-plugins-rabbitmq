@@ -4,8 +4,18 @@
 # RabbitMQ check alive plugin
 # ===
 #
+# DESCRIPTION:
 # This plugin checks if RabbitMQ server is alive using the REST API
 #
+# PLATFORMS:
+#   Linux, Windows, BSD, Solaris
+#
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: rest-client
+#
+# LICENSE:
 # Copyright 2012 Abhijith G <abhi@runa.com> and Runa Inc.
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE

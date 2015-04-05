@@ -1,11 +1,21 @@
 #!/usr/bin/env ruby
 #  encoding: UTF-8
 #
-# RabbitMQ check alive plugin
+# RabbitMQ check amqp alive plugin
 # ===
 #
+# DESCRIPTION:
 # This plugin checks if RabbitMQ server is alive using the REST API
 #
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: bunny
+#
+# LICENSE:
 # Copyright 2013 Milos Gajdos
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE

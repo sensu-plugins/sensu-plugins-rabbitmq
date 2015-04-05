@@ -4,6 +4,18 @@
 # RabbitMQ Queue Metrics
 # ===
 #
+# DESCRIPTION:
+# This plugin checks if RabbitMQ server is alive using the REST API
+#
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: carrot-top
+#
+# LICENSE:
 # Copyright 2011 Sonian, Inc <chefs@sonian.net>
 # Copyright 2015 Tim Smith <tim@cozy.co> and Cozy Services Ltd.
 #

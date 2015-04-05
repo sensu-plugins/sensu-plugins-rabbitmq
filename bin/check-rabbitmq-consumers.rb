@@ -2,11 +2,20 @@
 #  encoding: UTF-8
 #
 # Check RabbitMQ consumers
-# ========================
+# ===
 #
-# Copyright 2014 Daniel Kerwin <d.kerwin@gini.net>
-# Copyright 2014 Tim Smith <tim@cozy.co>
+# DESCRIPTION:
+# This plugin checks the number of consumers on the RabbitMQ server
 #
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: carrot-top
+#
+# LICENSE:
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
 

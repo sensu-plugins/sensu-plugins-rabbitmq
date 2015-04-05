@@ -3,6 +3,8 @@
 #
 # RabbitMQ Queue Drain Time
 # ===
+#
+# DESCRIPTION:
 # This plugin checks the time it will take for each queue on the RabbitMQ
 # server to drain based on the current message egress rate.  For example
 # if a queue has 1,000 messages in it, but egresses only 1 message a sec
@@ -10,6 +12,15 @@
 #
 # The plugin is based on the RabbitMQ Queue Metrics plugin
 #
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
+# DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
+# gem: sensu-plugin
+# gem: carrot-top
+#
+# LICENSE:
 # Copyright 2015 Tim Smith <tim@cozy.co> and Cozy Services Ltd.
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE

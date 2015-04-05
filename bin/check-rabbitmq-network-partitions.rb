@@ -4,13 +4,19 @@
 # RabbitMQ Network Partitions Check
 # ===
 #
+# DESCRIPTION:
 # This plugin checks if a RabbitMQ network partition has occured.
 # https://www.rabbitmq.com/partitions.html
 #
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
 # DEPENDENCIES:
+# RabbitMQ rabbitmq_management plugin
 # gem: sensu-plugin
 # gem: carrot-top
 #
+# LICENSE:
 # Copyright 2015 Ed Robinson <ed@reevoo.com> and Reevoo LTD.
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE

@@ -4,13 +4,7 @@
 # RabbitMQ Overview Metrics
 # ===
 #
-# Dependencies
-# -----------
-# - RabbitMQ `rabbitmq_management` plugin
-# - Ruby gem `carrot-top`
-#
-# Overview stats
-# ---------------
+# DESCRIPTION:
 # RabbitMQ 'overview' stats are similar to what is shown on the main page
 # of the rabbitmq_management web UI. Example:
 #
@@ -28,6 +22,15 @@
 #    host.rabbitmq.message_stats.deliver_get.count 6661111 1344186404
 #    host.rabbitmq.message_stats.deliver_get.rate  24.6867565643405  1344186404#
 #
+# PLATFORMS:
+#   Linux, BSD, Solaris
+#
+# DEPENDENCIES:
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: carrot-top
+#
+# LICENSE:
 # Copyright 2012 Joe Miller - https://github.com/joemiller
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE
