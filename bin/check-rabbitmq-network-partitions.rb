@@ -39,13 +39,13 @@ class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
          default: 15_672
 
   option :username,
-         description: 'RabbitMQ username',
+         description: 'RabbitMQ management API user',
          short: '-u',
          long: '--username USERNAME',
          default: 'guest'
 
   option :password,
-         description: 'RabbitMQ password',
+         description: 'RabbitMQ management API password',
          short: '-p',
          long: '--password PASSWORD',
          default: 'guest'
