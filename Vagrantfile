@@ -5,17 +5,12 @@ require 'json'
 
 VAGRANTFILE_API_VERSION = '2'
 
-<<<<<<< HEAD
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'chef/centos-6.6'
-=======
 # Read in the configuration file for the vagrant environment
 config_file = JSON.parse(File.read('../GIR/config/vagrant_config.json'))
 vagrant_config = config_file['config']
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Standard configurtaion details
->>>>>>> Add new Vagrantfile
   config.vm.box_download_checksum = true
   config.vm.box_download_checksum_type = 'md5'
   config.vm.hostname = 'sensu-plugins-dev'
