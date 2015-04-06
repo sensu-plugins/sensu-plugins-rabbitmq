@@ -12,9 +12,9 @@
 #   Linux, BSD, Solaris
 #
 # DEPENDENCIES:
-# RabbitMQ rabbitmq_management plugin
-# gem: sensu-plugin
-# gem: carrot-top
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: carrot-top
 #
 # LICENSE:
 # Copyright 2015 Ed Robinson <ed@reevoo.com> and Reevoo LTD.

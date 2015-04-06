@@ -14,9 +14,9 @@
 #   Linux, Windows, BSD, Solaris
 #
 # DEPENDENCIES:
-# RabbitMQ rabbitmq_management plugin
-# gem: sensu-plugin
-# gem: rest-client
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: rest-client
 #
 # LICENSE:
 # Copyright 2012 Abhijith G <abhi@runa.com> and Runa Inc.

@@ -11,9 +11,9 @@
 #   Linux, BSD, Solaris
 #
 # DEPENDENCIES:
-# RabbitMQ rabbitmq_management plugin
-# gem: sensu-plugin
-# gem: bunny
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: bunny
 #
 # LICENSE:
 # Copyright 2013 Milos Gajdos

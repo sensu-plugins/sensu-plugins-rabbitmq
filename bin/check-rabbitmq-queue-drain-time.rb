@@ -16,9 +16,9 @@
 #   Linux, BSD, Solaris
 #
 # DEPENDENCIES:
-# RabbitMQ rabbitmq_management plugin
-# gem: sensu-plugin
-# gem: carrot-top
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: carrot-top
 #
 # LICENSE:
 # Copyright 2015 Tim Smith <tim@cozy.co> and Cozy Services Ltd.

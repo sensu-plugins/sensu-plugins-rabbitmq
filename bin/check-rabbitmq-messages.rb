@@ -11,9 +11,9 @@
 #   Linux, BSD, Solaris
 #
 # DEPENDENCIES:
-# RabbitMQ rabbitmq_management plugin
-# gem: sensu-plugin
-# gem: carrot-top
+#   RabbitMQ rabbitmq_management plugin
+#   gem: sensu-plugin
+#   gem: carrot-top
 #
 # LICENSE:
 # Copyright 2012 Evan Hazlett <ejhazlett@gmail.com>
