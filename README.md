@@ -14,7 +14,9 @@
  * bin/check-rabbitmq-cluster-health
  * bin/check-rabbitmq-consumers
  * bin/check-rabbitmq-messages
+ * bin/check-rabbitmq-network-partitions
  * bin/check-rabbitmq-node-health
+ * bin/check-rabbitmq-queue-drain-time
  * bin/check-rabbitmq-queue
  * bin/check-rabbitmq-stomp-alive
  * bin/metrics-rabbitmq-overview
