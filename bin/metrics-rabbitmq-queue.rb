@@ -5,7 +5,7 @@
 # ===
 #
 # DESCRIPTION:
-# This plugin checks if RabbitMQ server is alive using the REST API
+# This plugin checks compiles per queue message count metrics as well as a "drain time" metric, which is the time a queue will take to reach 0 based on current count and egress rate.
 #
 # PLATFORMS:
 #   Linux, BSD, Solaris
