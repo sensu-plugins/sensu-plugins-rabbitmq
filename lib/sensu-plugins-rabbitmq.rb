@@ -1,7 +1,15 @@
+
+require 'sensu-plugins-rabbitmq/version'
+
+# Load the defaults
+
 #
-# Set gem version
+# Default class
 #
-module SensuPluginsRabbitmq
-  # Gem version
-  VERSION = '0.0.1.alpha.1'
+module SensuPluginsRabbitMQ
+  class << self
+  end
+
+  class << self
+  end
 end
