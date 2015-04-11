@@ -14,6 +14,9 @@ PerceivedComplexity:
 CyclomaticComplexity:
     Enabled: false
 
+AbcSize:
+    Enabled: false
+
 ClassLength:
     Enabled: false
 
