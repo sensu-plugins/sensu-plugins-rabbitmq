@@ -24,6 +24,7 @@
 require 'sensu-plugin/check/cli'
 require 'bunny'
 
+# main plugin class
 class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ host',

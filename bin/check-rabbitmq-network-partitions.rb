@@ -25,6 +25,7 @@
 require 'sensu-plugin/check/cli'
 require 'carrot-top'
 
+# main plugin class
 class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ management API host',

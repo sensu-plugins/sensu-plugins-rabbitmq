@@ -27,6 +27,7 @@
 require 'sensu-plugin/check/cli'
 require 'stomp'
 
+# main plugin class
 class CheckRabbitStomp < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ host',

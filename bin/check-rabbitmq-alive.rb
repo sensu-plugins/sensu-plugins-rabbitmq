@@ -25,6 +25,7 @@ require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
 
+# main plugin class
 class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ host',

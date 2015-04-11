@@ -22,6 +22,7 @@
 require 'sensu-plugin/check/cli'
 require 'carrot-top'
 
+# main plugin class
 class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ management API host',

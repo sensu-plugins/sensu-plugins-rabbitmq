@@ -30,6 +30,7 @@ require 'sensu-plugin/check/cli'
 require 'socket'
 require 'carrot-top'
 
+# main plugin class
 class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
   option :host,
          description: 'RabbitMQ management API host',

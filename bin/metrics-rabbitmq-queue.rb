@@ -30,6 +30,7 @@ require 'sensu-plugin/metric/cli'
 require 'socket'
 require 'carrot-top'
 
+# main plugin class
 class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
   option :host,
          description: 'RabbitMQ management API host',
