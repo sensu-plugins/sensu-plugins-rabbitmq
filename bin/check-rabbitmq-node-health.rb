@@ -129,11 +129,11 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
       nodeinfo = JSON.parse(resource.get)[0]
 
       # Determine % memory consumed
-      pmem = sprintf('%.2f', nodeinfo['mem_used'].fdiv(nodeinfo['mem_limit']) * 100)
+      pmem = format('%.2f', nodeinfo['mem_used'].fdiv(nodeinfo['mem_limit']) * 100)
       # Determine % sockets consumed
-      psocket = sprintf('%.2f', nodeinfo['sockets_used'].fdiv(nodeinfo['sockets_total']) * 100)
+      psocket = format('%.2f', nodeinfo['sockets_used'].fdiv(nodeinfo['sockets_total']) * 100)
       # Determine % file descriptors consumed
-      pfd = sprintf('%.2f', nodeinfo['fd_used'].fdiv(nodeinfo['fd_total']) * 100)
+      pfd = format('%.2f', nodeinfo['fd_used'].fdiv(nodeinfo['fd_total']) * 100)
 
       # build status and message
       status = 'ok'
