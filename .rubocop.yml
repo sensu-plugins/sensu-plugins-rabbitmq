@@ -5,9 +5,6 @@ MethodLength:
 LineLength:
     Max: 160
 
-FileName:
-    Enabled: false
-
 PerceivedComplexity:
     Enabled: false
 
