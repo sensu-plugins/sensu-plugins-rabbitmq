@@ -72,6 +72,13 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          long: '--queuelevel',
          description: 'Monitors that no individual queue is above the thresholds specified'
 
+  option :excluded,
+         short: '-e queue_name',
+         long: '--excludedqueues queue_name',
+         description: 'Comma separated list of queues to exclude when using queue level monitoring',
+         proc: proc { |q| q.split(',') },
+         default: []
+
   def generate_message(status_hash)
     message =  []
     status_hash.each_pair do |k, v|
@@ -103,6 +110,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
       warn_queues = {}
       crit_queues = {}
       rabbitmq.queues.each do |queue|
+        next if config[:excluded].include?(queue['name'])
         (crit_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:critical].to_i # rubocop: disable Style/Semicolon
         (warn_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:warn].to_i # rubocop: disable Style/Semicolon
       end
