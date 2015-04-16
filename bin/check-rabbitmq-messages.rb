@@ -103,8 +103,8 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
       warn_queues = {}
       crit_queues = {}
       rabbitmq.queues.each do |queue|
-        (crit_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:critical].to_i
-        (warn_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:warn].to_i
+        (crit_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:critical].to_i # rubocop: disable Style/Semicolon
+        (warn_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:warn].to_i # rubocop: disable Style/Semicolon
       end
       message crit_queues.empty? ? generate_message(warn_queues) : generate_message(crit_queues)
       critical unless crit_queues.empty?
