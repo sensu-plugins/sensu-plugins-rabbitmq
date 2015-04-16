@@ -17,6 +17,7 @@
 #
 # LICENSE:
 # Copyright 2012 Evan Hazlett <ejhazlett@gmail.com>
+# Copyright 2015 Tim Smith <tim@cozy.co> and Cozy Services Ltd.
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
@@ -66,6 +67,19 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          description: 'CRITICAL message count threshold',
          default: 500
 
+  option :queuelevel,
+         short: '-q',
+         long: '--queuelevel',
+         description: 'Monitors that no individual queue is above the thresholds specified'
+
+  def generate_message(status_hash)
+    message =  []
+    status_hash.each_pair do |k, v|
+      message << "#{k}: #{v}"
+    end
+    message.join(', ')
+  end
+
   def acquire_rabbitmq_info
     begin
       rabbitmq_info = CarrotTop.new(
@@ -76,18 +90,31 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         ssl: config[:ssl]
       )
     rescue
-      warning 'could not get rabbitmq info'
+      warning 'Could not connect to rabbitmq'
     end
     rabbitmq_info
   end
 
   def run
     rabbitmq = acquire_rabbitmq_info
-    overview = rabbitmq.overview
-    total = overview['queue_totals']['messages']
-    message "#{total}"
-    critical if total > config[:critical].to_i
-    warning if total > config[:warn].to_i
+
+    # monitor counts in each queue or monitor the total number of messages in the system
+    if config[:queuelevel]
+      warn_queues = {}
+      crit_queues = {}
+      rabbitmq.queues.each do |queue|
+        (crit_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:critical].to_i
+        (warn_queues["#{queue['name']}"] = queue['messages']; next) if queue['messages'] >= config[:warn].to_i
+      end
+      message crit_queues.empty? ? generate_message(warn_queues) : generate_message(crit_queues)
+      critical unless crit_queues.empty?
+      warning unless warn_queues.empty?
+    else
+      total = rabbitmq.overview['queue_totals']['messages']
+      message "#{total}"
+      critical if total > config[:critical].to_i
+      warning if total > config[:warn].to_i
+    end
     ok
   end
 end
