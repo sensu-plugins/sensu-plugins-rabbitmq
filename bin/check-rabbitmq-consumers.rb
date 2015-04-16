@@ -112,8 +112,8 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
       next unless config[:queue].include?(queue['name'])
       missing.delete(queue['name'])
       consumers = queue['consumers']
-      critical.push(queue['name']) if consumers < config[:critical]
-      warn.push(queue['name']) if consumers < config[:warn]
+      critical.push(queue['name']) if consumers <= config[:critical]
+      warn.push(queue['name']) if consumers <= config[:warn]
     end
 
     return_condition(missing, critical, warn)
