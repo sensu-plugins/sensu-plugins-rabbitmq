@@ -1,4 +1,6 @@
 #### UNRELEASED
+* Add the ability to monitor all queues in the consumer count plugin
+* Add ability to exclude specific queues in the consumer count plugin
 * Added Ruby 2.2.0 to Travis
 * Fixed the critical and warning values to alert when <= not < in check-rabbitmq-consumers.rb
 * Added the ability to monitor message count per queue and exclude specific queues in check-rabbitmq-messages.rb
