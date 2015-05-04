@@ -1,4 +1,9 @@
-#### UNRELEASED
+#Change Log
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
+
+## Unreleased][unreleased]
 * Add the ability to monitor all queues in the consumer count plugin
 * Add ability to exclude specific queues in the consumer count plugin
 * Added Ruby 2.2.0 to Travis

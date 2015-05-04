@@ -5,6 +5,9 @@ MethodLength:
 LineLength:
     Max: 160
 
+AbcSize:
+    Max: 50
+
 FileName:
     Enabled: false
 
@@ -12,9 +15,6 @@ PerceivedComplexity:
     Enabled: false
 
 CyclomaticComplexity:
-    Enabled: false
-
-AbcSize:
     Enabled: false
 
 ClassLength:
@@ -25,4 +25,3 @@ IfUnlessModifier:
 
 RegexpLiteral:
     Enabled: false
-
