@@ -6,7 +6,7 @@ LineLength:
     Max: 160
 
 AbcSize:
-    Max: 50
+    Enabled: false
 
 FileName:
     Enabled: false
