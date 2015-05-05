@@ -72,6 +72,6 @@ DEPENDENCIES
   rake (~> 10.0)
   redcarpet (~> 3.2)
   rspec (~> 3.1)
-  rubocop (= 0.30.0)
+  rubocop (~> 0.30)
   sensu-plugins-rabbitmq!
   yard (~> 0.8)
