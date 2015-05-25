@@ -9,18 +9,18 @@
 ## Functionality
 
 ## Files
- * bin/check-rabbitmq-alive
- * bin/check-rabbitmq-amqp-alive
- * bin/check-rabbitmq-cluster-health
- * bin/check-rabbitmq-consumers
- * bin/check-rabbitmq-messages
- * bin/check-rabbitmq-network-partitions
- * bin/check-rabbitmq-node-health
- * bin/check-rabbitmq-queue-drain-time
- * bin/check-rabbitmq-queue
- * bin/check-rabbitmq-stomp-alive
- * bin/metrics-rabbitmq-overview
- * bin/metrics-rabbitmq-queue
+ * bin/check-rabbitmq-alive.rb
+ * bin/check-rabbitmq-amqp-alive.rb
+ * bin/check-rabbitmq-cluster-health.rb
+ * bin/check-rabbitmq-consumers.rb
+ * bin/check-rabbitmq-messages.rb
+ * bin/check-rabbitmq-network-partitions.rb
+ * bin/check-rabbitmq-node-health.rb
+ * bin/check-rabbitmq-queue-drain-time.rb
+ * bin/check-rabbitmq-queue.rb
+ * bin/check-rabbitmq-stomp-alive.rb
+ * bin/metrics-rabbitmq-overview.rb
+ * bin/metrics-rabbitmq-queue.rb
 
 ## Usage
 
