@@ -36,6 +36,9 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'sensu-plugin', '1.1.0'
   s.add_runtime_dependency 'carrot-top'
+  s.add_runtime_dependency 'stomp'
+  s.add_runtime_dependency 'rest_client'
+  s.add_runtime_dependency 'bunny'
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
   s.add_development_dependency 'rubocop',                   '~> 0.30'
