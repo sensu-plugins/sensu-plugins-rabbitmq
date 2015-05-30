@@ -1,7 +1,7 @@
 require 'json'
 
 # encoding: utf-8
-module SensuPluginsRabbitMQ
+module SensuPluginsUnicorn
   # This defines the version of the gem
   module Version
     MAJOR = 0
