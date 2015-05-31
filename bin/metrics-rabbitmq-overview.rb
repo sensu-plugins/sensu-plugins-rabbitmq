@@ -89,7 +89,7 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
     rabbitmq_info
   end
 
-  def run
+  def run #rubocop:disable all
     timestamp = Time.now.to_i
 
     rabbitmq = acquire_rabbitmq_info

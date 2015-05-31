@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-rabbitmq'
   s.license                = 'MIT'
-  s.metadata               = { 'maintainer'         => '',
+  s.metadata               = { 'maintainer'         => '@mattyjones',
                                'development_status' => 'active',
                                'production_status'  => 'unstable - testing recommended',
                                'release_draft'      => 'false',
@@ -37,11 +37,11 @@ Gem::Specification.new do |s|
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsRabbitMQ::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin', '1.1.0'
-  s.add_runtime_dependency 'carrot-top'
-  s.add_runtime_dependency 'stomp'
-  s.add_runtime_dependency 'rest_client'
-  s.add_runtime_dependency 'bunny'
+  s.add_runtime_dependency 'sensu-plugin',   '1.1.0'
+  s.add_runtime_dependency 'carrot-top',     '0.0.7'
+  s.add_runtime_dependency 'stomp',          '1.3.4'
+  s.add_runtime_dependency 'rest-client',    '1.8.0'
+  s.add_runtime_dependency 'bunny',          '1.7.0'
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
   s.add_development_dependency 'rubocop',                   '~> 0.30'
