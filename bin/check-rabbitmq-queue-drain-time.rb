@@ -99,7 +99,7 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
       end
 
       # we don't care about empty queues and they'll have an infinite drain time so skip them
-      next if queue['messages'] == 0
+      next if queue['messages'] == 0 || queue['messages'] == nil
 
       # handle rate of zero which is an infinite time until empty
       if queue['backing_queue_status']['avg_egress_rate'].to_f == 0
