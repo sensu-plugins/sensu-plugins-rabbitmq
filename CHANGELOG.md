@@ -22,6 +22,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 - Added the ability to monitor message count per queue and exclude specific queues in check-rabbitmq-messages.rb
 
 ### Fixed
+- Nil queue values should be treated as a 0 in the queue drain time plugin
 - Fixed the critical and warning values to alert when <= not < in check-rabbitmq-consumers.rb
 
 ### Changed
