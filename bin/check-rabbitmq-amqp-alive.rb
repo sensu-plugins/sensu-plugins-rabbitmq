@@ -5,13 +5,12 @@
 # ===
 #
 # DESCRIPTION:
-# This plugin checks if RabbitMQ server is alive using the REST API
+# This plugin checks if RabbitMQ server is alive using AMQP
 #
 # PLATFORMS:
 #   Linux, BSD, Solaris
 #
 # DEPENDENCIES:
-#   RabbitMQ rabbitmq_management plugin
 #   gem: sensu-plugin
 #   gem: bunny
 #
