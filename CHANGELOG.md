@@ -5,6 +5,12 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [0.0.4] - 2015-08-11
+### Changed
+- Add several stats to the metrics-rabbitmq-queue.rb plugin including connections states per node
+- Add queue exclusion (filter out) option to the metrics-rabbitmq-queue.rb plugin
+- Add global count stats (as seen in rmq dashboard) to the metrics-rabbitmq-overview.rb plugin
+
 ## [0.0.3] - 2015-07-14
 ### Changed
 - updated sensu-plugin gem to 1.2.0
