@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [0.0.3] - 2015-08-18
+### Changed
+- pinned amq-protocol
+
 ## [0.0.3] - 2015-07-14
 ### Changed
 - updated sensu-plugin gem to 1.2.0
