@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'stomp',          '1.3.4'
   s.add_runtime_dependency 'rest-client',    '1.8.0'
   s.add_runtime_dependency 'bunny',          '1.7.0'
+  s.add_runtime_dependency 'amq-protocol',   '1.9.2' # locked as bunny 1.7.0 deps breaks on runby < 2
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
   s.add_development_dependency 'rubocop',                   '0.30'
