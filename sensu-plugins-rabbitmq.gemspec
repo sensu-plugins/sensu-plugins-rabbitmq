@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'amq-protocol',   '1.9.2' # locked as bunny 1.7.0 deps breaks on runby < 2
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
-  s.add_development_dependency 'rubocop',                   '0.30'
+  s.add_development_dependency 'rubocop',                   '0.32.1'
   s.add_development_dependency 'rspec',                     '~> 3.1'
   s.add_development_dependency 'bundler',                   '~> 1.7'
   s.add_development_dependency 'rake',                      '~> 10.0'

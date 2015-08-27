@@ -113,7 +113,7 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
       else
         message = "#{failed_nodes.count} failed cluster node: #{failed_nodes.sort.join(',')}"
       end
-      message.prepend("#{missing_nodes.count } node(s) not found: #{missing_nodes.join(',')}. ") unless missing_nodes.empty?
+      message.prepend("#{missing_nodes.count} node(s) not found: #{missing_nodes.join(',')}. ") unless missing_nodes.empty?
       { 'status' => status, 'message' => message }
     rescue Errno::ECONNREFUSED => e
       { 'status' => 'critical', 'message' => e.message }

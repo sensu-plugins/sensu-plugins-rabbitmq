@@ -94,7 +94,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     queues = rabbitmq.queues
     config[:queue].each do |q|
       unless queues.map  { |hash| hash['name'] }.include? q
-        @warn << "Queue #{ q } not available"
+        @warn << "Queue #{q} not available"
         next
       end
       queues.each do |queue|
@@ -102,16 +102,16 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         total = queue['messages']
         total = 0 if total.nil?
         message "#{total}"
-        @crit << "#{ q }:#{ total }" if total > config[:critical].to_i
-        @warn << "#{ q }:#{ total }" if total > config[:warn].to_i
+        @crit << "#{q}:#{total}" if total > config[:critical].to_i
+        @warn << "#{q}:#{total}" if total > config[:warn].to_i
       end
     end
     if @crit.empty? && @warn.empty?
       ok
     elsif !(@crit.empty?)
-      critical "critical: #{ @crit } warning: #{ @warn }"
+      critical "critical: #{@crit} warning: #{@warn}"
     elsif !(@warn.empty?)
-      warning "critical: #{ @crit } warning: #{ @warn }"
+      warning "critical: #{@crit} warning: #{@warn}"
     end
   end
 end
