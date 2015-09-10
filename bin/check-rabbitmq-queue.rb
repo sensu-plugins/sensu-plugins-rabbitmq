@@ -72,6 +72,12 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          description: 'CRITICAL message count threshold',
          default: 500
 
+  option :ignore,
+         description: 'Ignore non-existent queues',
+         long: '--ignore',
+         boolean: true,
+         default: false
+
   def acquire_rabbitmq_info
     begin
       rabbitmq_info = CarrotTop.new(
@@ -94,7 +100,9 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     queues = rabbitmq.queues
     config[:queue].each do |q|
       unless queues.map  { |hash| hash['name'] }.include? q
-        @warn << "Queue #{q} not available"
+        if not config[:ignore]
+          @warn << "Queue #{q} not available"
+        end
         next
       end
       queues.each do |queue|
