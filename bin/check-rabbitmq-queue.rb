@@ -100,7 +100,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     queues = rabbitmq.queues
     config[:queue].each do |q|
       unless queues.map  { |hash| hash['name'] }.include? q
-        if not config[:ignore]
+        unless config[:ignore]
           @warn << "Queue #{q} not available"
         end
         next
