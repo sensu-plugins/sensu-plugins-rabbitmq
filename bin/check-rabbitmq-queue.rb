@@ -38,6 +38,12 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 15_672
 
+  option :vhost,
+         description: 'RabbitMQ vhost',
+         short: '-v',
+         long: '--vhost VHOST',
+         default: '%2F'
+
   option :ssl,
          description: 'Enable SSL for connection to the API',
          long: '--ssl',
@@ -72,6 +78,12 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          description: 'CRITICAL message count threshold',
          default: 500
 
+  option :ignore,
+         description: 'Ignore non-existent queues',
+         long: '--ignore',
+         boolean: true,
+         default: false
+
   def acquire_rabbitmq_info
     begin
       rabbitmq_info = CarrotTop.new(
@@ -91,10 +103,12 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     @crit = []
     @warn = []
     rabbitmq = acquire_rabbitmq_info
-    queues = rabbitmq.queues
+    queues = rabbitmq.method_missing('/queues/' + config[:vhost])
     config[:queue].each do |q|
       unless queues.map  { |hash| hash['name'] }.include? q
-        @warn << "Queue #{q} not available"
+        unless config[:ignore]
+          @warn << "Queue #{q} not available"
+        end
         next
       end
       queues.each do |queue|
