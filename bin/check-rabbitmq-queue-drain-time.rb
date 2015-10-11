@@ -54,8 +54,12 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
          default: 'guest'
 
   option :filter,
-         description: 'Regular expression for filtering queues',
+         description: 'Regular expression for including queues that match',
          long: '--filter REGEX'
+
+  option :exclude,
+         description: 'Regular expression for excluding queues that match',
+         long: '--exclude REGEX'
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
@@ -96,6 +100,10 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
     acquire_rabbitmq_queues.each do |queue|
       if config[:filter]
         next unless queue['name'].match(config[:filter])
+      end
+
+      if config[:exclude]
+        next unless !queue['name'].match(config[:exclude])
       end
 
       # we don't care about empty queues and they'll have an infinite drain time so skip them
