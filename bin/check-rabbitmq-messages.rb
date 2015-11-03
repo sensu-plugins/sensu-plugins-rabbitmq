@@ -111,6 +111,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
       crit_queues = {}
       rabbitmq.queues.each do |queue|
         next if config[:excluded].include?(queue['name'])
+        queue['messages'] ||= 0
         if queue['messages'] >= config[:critical].to_i
           crit_queues["#{queue['name']}"] = queue['messages']
           next
