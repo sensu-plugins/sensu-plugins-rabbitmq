@@ -5,7 +5,19 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
-## [0.0.3] - 2015-08-18
+## [0.1.0] - 2015-11-19
+### Changed
+- Upgrade to rubocop 0.32.1 and cleanup
+
+### Added
+- check-rabbitmq-queue.rb: Added option to ignore non-existent queues
+- check-rabbitmq-queue.rb: Added vhost support
+- Added SSL support to check-rabbitmq-cluster-health.rb and check-rabbitmq-node-health.rb
+
+### Fixed
+- metrics-rabbitmq-queue.rb: Fix error when queue['messages'] is missing
+
+## [0.0.4] - 2015-08-18
 ### Changed
 - pinned amq-protocol
 
