@@ -55,6 +55,12 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
          long: '--port PORT',
          default: '15672'
 
+  option :ssl,
+         description: 'Enable SSL for connection to the API',
+         long: '--ssl',
+         boolean: true,
+         default: false
+
   option :memwarn,
          description: 'Warning % of mem usage vs high watermark',
          short: '-m',
@@ -122,9 +128,11 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
     port     = config[:port]
     username = config[:username]
     password = config[:password]
+    ssl      = config[:ssl]
 
     begin
-      resource = RestClient::Resource.new "http://#{host}:#{port}/api/nodes", username, password
+      ssl ? url_prefix = 'https' : url_prefix = 'http'
+      resource = RestClient::Resource.new "#{url_prefix}://#{host}:#{port}/api/nodes", username, password
       # Parse our json data
       nodeinfo = JSON.parse(resource.get)[0]
 

@@ -80,7 +80,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          default: []
 
   def generate_message(status_hash)
-    message =  []
+    message = []
     status_hash.each_pair do |k, v|
       message << "#{k}: #{v}"
     end
