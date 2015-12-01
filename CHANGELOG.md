@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## Unreleased
+### Fixed
+- check-rabbitmq-node-health.rb: Fix messages for File Descriptor alerts
+- check-rabbitmq-node-health.rb: Make options unique
 
 ## [0.1.0] - 2015-11-19
 ### Changed
