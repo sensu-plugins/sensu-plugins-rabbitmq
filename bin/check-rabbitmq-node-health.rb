@@ -77,29 +77,29 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
 
   option :fdwarn,
          description: 'Warning % of file descriptor usage vs high watermark',
-         short: '-m',
-         long: '--mwarn PERCENT',
+         short: '-f',
+         long: '--fwarn PERCENT',
          proc: proc(&:to_f),
          default: 80
 
   option :fdcrit,
          description: 'Critical % of file descriptor usage vs high watermark',
-         short: '-c',
-         long: '--mcrit PERCENT',
+         short: '-F',
+         long: '--fcrit PERCENT',
          proc: proc(&:to_f),
          default: 90
 
   option :socketwarn,
          description: 'Warning % of socket usage vs high watermark',
-         short: '-m',
-         long: '--mwarn PERCENT',
+         short: '-s',
+         long: '--swarn PERCENT',
          proc: proc(&:to_f),
          default: 80
 
   option :socketcrit,
          description: 'Critical % of socket usage vs high watermark',
-         short: '-c',
-         long: '--mcrit PERCENT',
+         short: '-S',
+         long: '--scrit PERCENT',
          proc: proc(&:to_f),
          default: 90
 
