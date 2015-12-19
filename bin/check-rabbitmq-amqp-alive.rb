@@ -102,9 +102,9 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
 
     begin
       conn = Bunny.new("amqp#{ssl ? 's' : ''}://#{username}:#{password}@#{host}:#{port}/#{vhost}",
-              :tls_cert         => tls_cert,
-              :tls_key          => tls_key,
-              :verify_peer      => no_verify_peer)
+                       tls_cert:    tls_cert,
+                       tls_key:     tls_key,
+                       verify_peer: no_verify_peer)
       conn.start
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }
     rescue Bunny::PossibleAuthenticationFailureError
