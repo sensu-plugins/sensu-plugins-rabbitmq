@@ -72,7 +72,7 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
          default: nil
 
   option :no_verify_peer,
-         description: 'TLS Private Key to use when connecting',
+         description: 'Disable peer verification',
          long: '--no-verify-peer',
          boolean: true,
          default: true
