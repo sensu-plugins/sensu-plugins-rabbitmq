@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [1.1.0] - 2015-12-30
+### Added
 - check-rabbitmq-queue-drain-time.rb: Added option to filter vhost with regular expression
 
 ## [1.0.0] - 2015-12-01
