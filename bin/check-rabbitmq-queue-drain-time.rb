@@ -44,10 +44,9 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
          default: 15_672
 
   option :vhost,
-          description: 'Regular expression for filtering the RabbitMQ vhost',
-          short: '-v',
-          long: '--vhost VHOST',
-          default: false
+         description: 'Regular expression for filtering the RabbitMQ vhost',
+         short: '-v',
+         long: '--vhost VHOST'
 
   option :user,
          description: 'RabbitMQ management API user',
@@ -94,8 +93,8 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
       warning 'could not get rabbitmq queue info'
     end
 
-    if config[:vhost] != false
-      return rabbitmq_info.queues.select {|x| x['vhost'].match(config[:vhost])}
+    if config[:vhost]
+      return rabbitmq_info.queues.select { |x| x['vhost'].match(config[:vhost]) }
     end
 
     rabbitmq_info.queues
