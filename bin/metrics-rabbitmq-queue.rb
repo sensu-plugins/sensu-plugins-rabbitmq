@@ -43,6 +43,11 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
          proc: proc(&:to_i),
          default: 15_672
 
+  option :vhost,
+         description: 'Regular expression for filtering the RabbitMQ vhost',
+         short: '-v',
+         long: '--vhost VHOST'
+
   option :user,
          description: 'RabbitMQ management API user',
          long: '--user USER',
@@ -80,6 +85,11 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
     rescue
       warning 'could not get rabbitmq queue info'
     end
+    
+    if config[:vhost]
+      return rabbitmq_info.queues.select { |x| x['vhost'].match(config[:vhost]) }
+    end
+
     rabbitmq_info.queues
   end
 
