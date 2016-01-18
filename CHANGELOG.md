@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## Unreleased
+### Added
+- check-rabbitmq-amqp-alive.rb: Added support for TLS authentication 
 
 ## [1.1.0] - 2015-12-30
 ### Added
