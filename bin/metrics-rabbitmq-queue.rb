@@ -85,7 +85,7 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
     rescue
       warning 'could not get rabbitmq queue info'
     end
-    
+
     if config[:vhost]
       return rabbitmq_info.queues.select { |x| x['vhost'].match(config[:vhost]) }
     end
