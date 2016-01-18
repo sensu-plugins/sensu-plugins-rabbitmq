@@ -61,6 +61,22 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :tls_cert,
+         description: 'TLS Certificate to use when connecting',
+         long: '--tls-cert CERT',
+         default: nil
+
+  option :tls_key,
+         description: 'TLS Private Key to use when connecting',
+         long: '--tls-key KEY',
+         default: nil
+
+  option :no_verify_peer,
+         description: 'Disable peer verification',
+         long: '--no-verify-peer',
+         boolean: true,
+         default: true
+
   def run
     res = vhost_alive?
 
@@ -74,15 +90,21 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
   end
 
   def vhost_alive?
-    host     = config[:host]
-    port     = config[:port]
-    username = config[:username]
-    password = config[:password]
-    vhost    = config[:vhost]
-    ssl      = config[:ssl]
+    host           = config[:host]
+    port           = config[:port]
+    username       = config[:username]
+    password       = config[:password]
+    vhost          = config[:vhost]
+    ssl            = config[:ssl]
+    tls_cert       = config[:tls_cert]
+    tls_key        = config[:tls_key]
+    no_verify_peer = config[:no_verify_peer]
 
     begin
-      conn = Bunny.new("amqp#{ssl ? 's' : ''}://#{username}:#{password}@#{host}:#{port}/#{vhost}")
+      conn = Bunny.new("amqp#{ssl ? 's' : ''}://#{username}:#{password}@#{host}:#{port}/#{vhost}",
+                       tls_cert:    tls_cert,
+                       tls_key:     tls_key,
+                       verify_peer: no_verify_peer)
       conn.start
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }
     rescue Bunny::PossibleAuthenticationFailureError
