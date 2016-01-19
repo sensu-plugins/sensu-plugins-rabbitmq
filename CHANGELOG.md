@@ -6,6 +6,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ## Unreleased
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added support for TLS authentication 
+- metrics-rabbitmq-queue.rb: Added option to filter vhost with regular expression
 
 ## [1.1.0] - 2015-12-30
 ### Added
