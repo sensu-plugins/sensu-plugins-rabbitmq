@@ -61,6 +61,12 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :verify_ssl_off,
+         description: 'Do not check validity of SSL cert. Use for self-signed certs, etc (insecure)',
+         long: '--verify_ssl_off',
+         boolean: true,
+         default: false
+
   option :memwarn,
          description: 'Warning % of mem usage vs high watermark',
          short: '-m',
@@ -124,15 +130,16 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
   end
 
   def node_healthy?
-    host     = config[:host]
-    port     = config[:port]
-    username = config[:username]
-    password = config[:password]
-    ssl      = config[:ssl]
+    host       = config[:host]
+    port       = config[:port]
+    username   = config[:username]
+    password   = config[:password]
+    ssl        = config[:ssl]
+    verify_ssl = config[:verify_ssl_off]
 
     begin
       ssl ? url_prefix = 'https' : url_prefix = 'http'
-      resource = RestClient::Resource.new "#{url_prefix}://#{host}:#{port}/api/nodes", username, password
+      resource = RestClient::Resource.new "#{url_prefix}://#{host}:#{port}/api/nodes", :user => username, :password => password, :verify_ssl => !verify_ssl
       # Parse our json data
       nodeinfo = JSON.parse(resource.get)[0]
 
