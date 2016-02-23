@@ -42,7 +42,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          description: 'RabbitMQ vhost',
          short: '-v',
          long: '--vhost VHOST',
-         default: '%2F'
+         default: ''
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
