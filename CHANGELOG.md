@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
-## Unreleased
+## [Unreleased]
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added support for TLS authentication 
 - metrics-rabbitmq-queue.rb: Added option to filter vhost with regular expression
