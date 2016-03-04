@@ -67,6 +67,12 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :verify_ssl_off,
+         description: 'Do not check validity of SSL cert. Use for self-signed certs, etc (insecure)',
+         long: '--verify_ssl_off',
+         boolean: true,
+         default: false
+
   def run
     res = cluster_healthy?
 
@@ -95,16 +101,22 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
   end
 
   def cluster_healthy?
-    host     = config[:host]
-    port     = config[:port]
-    username = config[:username]
-    password = config[:password]
-    ssl      = config[:ssl]
-    nodes    = config[:nodes].split(',')
+    host       = config[:host]
+    port       = config[:port]
+    username   = config[:username]
+    password   = config[:password]
+    ssl        = config[:ssl]
+    verify_ssl = config[:verify_ssl_off]
+    nodes      = config[:nodes].split(',')
 
     begin
       ssl ? url_prefix = 'https' : url_prefix = 'http'
-      resource = RestClient::Resource.new "#{url_prefix}://#{host}:#{port}/api/nodes", username, password
+      resource = RestClient::Resource.new(
+        "#{url_prefix}://#{host}:#{port}/api/nodes",
+        user: username,
+        password: password,
+        verify_ssl: !verify_ssl
+      )
       # create a hash of the server names and their running state
       servers_status = Hash[JSON.parse(resource.get).map { |server| [server['name'], server['running']] }]
 

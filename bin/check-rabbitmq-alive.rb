@@ -63,6 +63,12 @@ class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :verify_ssl_off,
+         description: 'Do not check validity of SSL cert. Use for self-signed certs, etc (insecure)',
+         long: '--verify_ssl_off',
+         boolean: true,
+         default: false
+
   def run
     res = vhost_alive?
 
@@ -76,15 +82,21 @@ class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
   end
 
   def vhost_alive?
-    host     = config[:host]
-    port     = config[:port]
-    username = config[:username]
-    password = config[:password]
-    vhost    = config[:vhost]
-    ssl      = config[:ssl]
+    host       = config[:host]
+    port       = config[:port]
+    username   = config[:username]
+    password   = config[:password]
+    vhost      = config[:vhost]
+    ssl        = config[:ssl]
+    verify_ssl = config[:verify_ssl_off]
 
     begin
-      resource = RestClient::Resource.new "http#{ssl ? 's' : ''}://#{host}:#{port}/api/aliveness-test/#{vhost}", username, password
+      resource = RestClient::Resource.new(
+        "http#{ssl ? 's' : ''}://#{host}:#{port}/api/aliveness-test/#{vhost}",
+        user: username,
+        password: password,
+        verify_ssl: !verify_ssl
+      )
       # Attempt to parse response (just to trigger parse exception)
       _response = JSON.parse(resource.get) == { 'status' => 'ok' }
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }
