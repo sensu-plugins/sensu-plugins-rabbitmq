@@ -138,7 +138,7 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
     verify_ssl = config[:verify_ssl_off]
 
     begin
-      ssl ? url_prefix = 'https' : url_prefix = 'http'
+      url_prefix = ssl ? 'https' : 'http'
       resource = RestClient::Resource.new(
         "#{url_prefix}://#{host}:#{port}/api/nodes",
         user: username,

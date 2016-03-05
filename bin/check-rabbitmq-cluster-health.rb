@@ -110,7 +110,7 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
     nodes      = config[:nodes].split(',')
 
     begin
-      ssl ? url_prefix = 'https' : url_prefix = 'http'
+      url_prefix = ssl ? 'https' : 'http'
       resource = RestClient::Resource.new(
         "#{url_prefix}://#{host}:#{port}/api/nodes",
         user: username,
@@ -132,7 +132,7 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
                   "#{servers_status.keys.count} healthy cluster nodes"
                 else
                   "#{failed_nodes.count} failed cluster node: #{failed_nodes.sort.join(',')}"
-      end
+                end
       message.prepend("#{missing_nodes.count} node(s) not found: #{missing_nodes.join(',')}. ") unless missing_nodes.empty?
       { 'status' => status, 'message' => message }
     rescue Errno::ECONNREFUSED => e
