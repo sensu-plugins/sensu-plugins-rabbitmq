@@ -44,7 +44,6 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - updated sensu-plugin gem to 1.2.0
 
 ## 0.0.1 - 2015-05-30
-
 ### Added
 - Add the ability to monitor all queues in the consumer count plugin
 - Add ability to exclude specific queues in the consumer count plugin
@@ -72,3 +71,10 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 ### Removed
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
+
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.1.0...1.0.0
+[0.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.0.4...0.1.0
+[0.0.3]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.0.3...0.0.4
+[0.0.3]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.0.1...0.0.3

@@ -113,11 +113,11 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         next if config[:excluded].include?(queue['name'])
         queue['messages'] ||= 0
         if queue['messages'] >= config[:critical].to_i
-          crit_queues["#{queue['name']}"] = queue['messages']
+          crit_queues[(queue['name']).to_s] = queue['messages']
           next
         end
         if queue['messages'] >= config[:warn].to_i
-          warn_queues["#{queue['name']}"] = queue['messages']
+          warn_queues[(queue['name']).to_s] = queue['messages']
           next
         end
       end
@@ -126,7 +126,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
       warning unless warn_queues.empty?
     else
       total = rabbitmq.overview['queue_totals']['messages']
-      message "#{total}"
+      message total.to_s
       critical if total > config[:critical].to_i
       warning if total > config[:warn].to_i
     end

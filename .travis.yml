@@ -17,13 +17,15 @@ notifications:
     on_failure: always
 script:
 - bundle exec rake default
+- gem build sensu-plugins-rabbitmq.gemspec
+- gem install sensu-plugins-rabbitmq-*.gem
 deploy:
   provider: rubygems
   api_key:
-    secure: izzyxb27kq+jr+FJEC8yQ0/DcmGhuURE0bXAbCZjLD0C6f8N511hZpUIr+iywspkL/rtbK3HIamoMjKV9aaJ7EIetEZ+KTU6cYaptXy0iR7DjBm9M+kitwbY7FPnwJSXv78XJauelJa/BrvRN565cK2pJgQj666xGPURBcbRNWM=
+    secure: mrLLg5dsJfh8y+HnnOpciBTCA7ZO+4l5ljEpVDQeYTaIye1H/gVGj+DXCBBlO6GdZjDeGnluh/C+nqR+WIwrUGk6Ks/4NBRcoAvlN2L7IOapunjyy546Cwu8OGkPhyvGtGooDyFfhVqPIYYNG0aMvopWp5QKNeLzhX4DLN576Yg=
   gem: sensu-plugins-rabbitmq
   on:
-    tags: true
+    ags: true
     all_branches: true
     rvm: 1.9.3
     rvm: 2.0
