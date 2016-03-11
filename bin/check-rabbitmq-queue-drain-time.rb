@@ -93,21 +93,20 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
       warning 'could not get rabbitmq queue info'
     end
 
+    queues = rabbitmq_info.queues.select { |q| q['name'].match(Regexp.new(config[:filter])) }
+
     if config[:vhost]
-      return rabbitmq_info.queues.select { |x| x['vhost'].match(config[:vhost]) }
+      return queues.select { |x| x['vhost'].match(config[:vhost]) }
     end
 
-    rabbitmq_info.queues
+    queues
   end
 
   def run
     warn_queues = {}
     crit_queues = {}
-    acquire_rabbitmq_queues.each do |queue|
-      if config[:filter]
-        next unless queue['name'].match(config[:filter])
-      end
 
+    acquire_rabbitmq_queues.each do |queue|
       # we don't care about empty queues and they'll have an infinite drain time so skip them
       next if queue['messages'] == 0 || queue['messages'].nil?
 
