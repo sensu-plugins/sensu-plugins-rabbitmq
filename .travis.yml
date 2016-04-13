@@ -25,7 +25,7 @@ deploy:
     secure: mrLLg5dsJfh8y+HnnOpciBTCA7ZO+4l5ljEpVDQeYTaIye1H/gVGj+DXCBBlO6GdZjDeGnluh/C+nqR+WIwrUGk6Ks/4NBRcoAvlN2L7IOapunjyy546Cwu8OGkPhyvGtGooDyFfhVqPIYYNG0aMvopWp5QKNeLzhX4DLN576Yg=
   gem: sensu-plugins-rabbitmq
   on:
-    ags: true
+    tags: true
     all_branches: true
     rvm: 1.9.3
     rvm: 2.0
