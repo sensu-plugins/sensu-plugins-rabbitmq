@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [1.2.0] - 2016-04-13
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added support for TLS authentication 
 - metrics-rabbitmq-queue.rb: Added option to filter vhost with regular expression
@@ -11,6 +13,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Fixed
 - check-rabbitmq-queue.rb: Fix default vhost
+- check-rabbitmq-queue-drain-time.rb: Fix logging output and filter
+
+### Changed
+- Update to rubocop 0.37
 
 ## [1.1.0] - 2015-12-30
 ### Added
@@ -72,7 +78,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.1.0...1.0.0
 [0.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.0.4...0.1.0
