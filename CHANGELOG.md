@@ -4,10 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- check-rabbitmq-cluster-health.rb: Added option to provide SSL CA certificate
 
 ## [1.2.0] - 2016-04-13
 ### Added
-- check-rabbitmq-amqp-alive.rb: Added support for TLS authentication 
+- check-rabbitmq-amqp-alive.rb: Added support for TLS authentication
 - metrics-rabbitmq-queue.rb: Added option to filter vhost with regular expression
 - Added option to skip SSL cert checking
 
