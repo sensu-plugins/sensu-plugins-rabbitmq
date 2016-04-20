@@ -122,7 +122,7 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
         password: password,
         verify_ssl: !verify_ssl
       }
-      options.merge!(ssl_ca_file: ssl_ca_file) unless ssl_ca_file.empty?
+      options[:ssl_ca_file] = ssl_ca_file unless ssl_ca_file.empty?
 
       resource = RestClient::Resource.new(
         "#{url_prefix}://#{host}:#{port}/api/nodes",
