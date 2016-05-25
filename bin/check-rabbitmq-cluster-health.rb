@@ -73,6 +73,11 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :ssl_ca_file,
+         description: 'Path to SSL CA .crt',
+         long: '--ssl_ca_file CA_PATH',
+         default: ''
+
   def run
     res = cluster_healthy?
 
@@ -101,21 +106,27 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
   end
 
   def cluster_healthy?
-    host       = config[:host]
-    port       = config[:port]
-    username   = config[:username]
-    password   = config[:password]
-    ssl        = config[:ssl]
-    verify_ssl = config[:verify_ssl_off]
-    nodes      = config[:nodes].split(',')
+    host        = config[:host]
+    port        = config[:port]
+    username    = config[:username]
+    password    = config[:password]
+    ssl         = config[:ssl]
+    verify_ssl  = config[:verify_ssl_off]
+    nodes       = config[:nodes].split(',')
+    ssl_ca_file = config[:ssl_ca_file]
 
     begin
       url_prefix = ssl ? 'https' : 'http'
-      resource = RestClient::Resource.new(
-        "#{url_prefix}://#{host}:#{port}/api/nodes",
+      options = {
         user: username,
         password: password,
         verify_ssl: !verify_ssl
+      }
+      options[:ssl_ca_file] = ssl_ca_file unless ssl_ca_file.empty?
+
+      resource = RestClient::Resource.new(
+        "#{url_prefix}://#{host}:#{port}/api/nodes",
+        options
       )
       # create a hash of the server names and their running state
       servers_status = Hash[JSON.parse(resource.get).map { |server| [server['name'], server['running']] }]
