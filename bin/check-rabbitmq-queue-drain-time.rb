@@ -60,7 +60,8 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
 
   option :filter,
          description: 'Regular expression for filtering queues',
-         long: '--filter REGEX'
+         long: '--filter REGEX',
+         default: false
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
@@ -93,7 +94,11 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
       warning 'could not get rabbitmq queue info'
     end
 
-    queues = rabbitmq_info.queues.select { |q| q['name'].match(Regexp.new(config[:filter])) }
+    if config[:filter]
+      queues = rabbitmq_info.queues.select { |q| q['name'].match(Regexp.new(config[:filter])) }
+    else
+      queues = rabbitmq_info.queues.select { |q| q['name'] }
+    end
 
     if config[:vhost]
       return queues.select { |x| x['vhost'].match(config[:vhost]) }

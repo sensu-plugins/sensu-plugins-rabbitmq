@@ -7,6 +7,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Added
 - check-rabbitmq-cluster-health.rb: Added option to provide SSL CA certificate
 
+## [1.2.1] - 2016-05-26
+### Added
+- check-rabbitmq-queue-drain-time.rb: Added default of ``false`` for ``filter`` option and now logically determine whether to filter or to use all found queues
+
 ## [1.2.0] - 2016-04-13
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added support for TLS authentication
