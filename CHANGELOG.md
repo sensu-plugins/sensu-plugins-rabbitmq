@@ -4,8 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [1.3.0] - 2016-04-13
 ### Added
 - check-rabbitmq-cluster-health.rb: Added option to provide SSL CA certificate
+
+### Changed
+- set dep on sensu-plugin gem to be more relaxed
 
 ## [1.2.0] - 2016-04-13
 ### Added
@@ -80,7 +85,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/0.1.0...1.0.0
