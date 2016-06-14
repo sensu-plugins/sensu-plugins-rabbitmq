@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsRabbitMQ::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin',   '1.2.0'
+  s.add_runtime_dependency 'sensu-plugin',   '~> 1.2'
   s.add_runtime_dependency 'carrot-top',     '0.0.7'
   s.add_runtime_dependency 'stomp',          '1.3.4'
   s.add_runtime_dependency 'rest-client',    '1.8.0'
