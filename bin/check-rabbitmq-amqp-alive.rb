@@ -106,6 +106,7 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
                        tls_key:     tls_key,
                        verify_peer: no_verify_peer)
       conn.start
+      conn.close if conn.connected?
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }
     rescue Bunny::PossibleAuthenticationFailureError
       { 'status' => 'critical', 'message' => 'Possible authentication failure' }
