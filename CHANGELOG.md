@@ -5,6 +5,12 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [1.4.0] - 2016-07-24
+### Changed
+- bump bunny version to 2.5.0
+- bump amq-protocol version to 2.0.1
+- drop ruby v1.9.3 support
+
 ## [1.3.0] - 2016-04-13
 ### Added
 - check-rabbitmq-cluster-health.rb: Added option to provide SSL CA certificate
