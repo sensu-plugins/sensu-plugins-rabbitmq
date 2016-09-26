@@ -2,12 +2,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'date'
-
-if RUBY_VERSION < '2.0.0'
-  require 'sensu-plugins-rabbitmq'
-else
-  require_relative 'lib/sensu-plugins-rabbitmq'
-end
+require_relative 'lib/sensu-plugins-rabbitmq'
 
 Gem::Specification.new do |s|
   s.authors                = ['Sensu-Plugins and contributors']
@@ -31,7 +26,7 @@ Gem::Specification.new do |s|
   s.platform               = Gem::Platform::RUBY
   s.post_install_message   = 'You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu'
   s.require_paths          = ['lib']
-  s.required_ruby_version  = '>= 1.9.3'
+  s.required_ruby_version  = '>= 2.0.0'
 
   s.summary                = 'Sensu plugins for rabbitmq'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
@@ -41,8 +36,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'carrot-top',     '0.0.7'
   s.add_runtime_dependency 'stomp',          '1.3.4'
   s.add_runtime_dependency 'rest-client',    '1.8.0'
-  s.add_runtime_dependency 'bunny',          '1.7.0'
-  s.add_runtime_dependency 'amq-protocol',   '1.9.2' # locked as bunny 1.7.0 deps breaks on runby < 2
+  s.add_runtime_dependency 'bunny',          '2.5.0'
+  s.add_runtime_dependency 'amq-protocol',   '2.0.1'
 
   s.add_development_dependency 'bundler',                   '~> 1.7'
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
@@ -53,4 +48,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop',                   '~> 0.40.0'
   s.add_development_dependency 'rspec',                     '~> 3.4'
   s.add_development_dependency 'yard',                      '~> 0.8'
+  s.add_development_dependency 'json',                      '~> 2.0.1'
 end
