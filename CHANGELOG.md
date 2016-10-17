@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+ - check-rabbitmq-queue-drain.rb: Added a default include-all value for the regex queue filter option
 
 ## [1.4.0] - 2016-07-24
 ### Changed

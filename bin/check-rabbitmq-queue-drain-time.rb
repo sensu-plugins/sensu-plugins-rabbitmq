@@ -60,7 +60,8 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
 
   option :filter,
          description: 'Regular expression for filtering queues',
-         long: '--filter REGEX'
+         long: '--filter REGEX',
+         default: '.*'
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
