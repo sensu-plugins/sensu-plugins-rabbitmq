@@ -7,11 +7,16 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Added
  - check-rabbitmq-queue-drain.rb: Added a default include-all value for the regex queue filter option
 
-## [1.4.0] - 2016-07-24
 ### Changed
 - bump bunny version to 2.5.0
 - bump amq-protocol version to 2.0.1
 - drop ruby v1.9.3 support
+
+### Added
+- Add ruby 2.3.0 support
+
+### Fixed
+- check-rabbitmq-amqp-alive: properly close connection if connected
 
 ## [1.3.0] - 2016-04-13
 ### Added
