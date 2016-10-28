@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- check-rabbitmq-node-usage.rb: added new check to look at rmq node resource useage. (@DvaBearqLoza)
+
 ### [2.2.0] - 2017-05-08
 ### Added
  - check-rabbitmq-queue.rb: Added --below feature to specify if value below threshold should generate alert (@alexpekurovsky)
@@ -15,13 +18,6 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Changed
 - bump stomp version to 1.4.3
-
-## [2.1.0] - 2017-01-10
-### Added
- - check-rabbitmq-queue.rb: Added features for using regex in queue name and pretty output (@alexpekurovsky)
-
-### Fixed
-- check-rabbitmq-node-health: prevent fd check failing on OSX due to non-numeric fd_used (@thisisjaid)
 
 ## [2.1.0] - 2017-01-10
 ### Added
