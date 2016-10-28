@@ -23,6 +23,13 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Fixed
 - check-rabbitmq-node-health: prevent fd check failing on OSX due to non-numeric fd_used (@thisisjaid)
 
+## [2.1.0] - 2017-01-10
+### Added
+ - check-rabbitmq-queue.rb: Added features for using regex in queue name and pretty output (@alexpekurovsky)
+
+### Fixed
+- check-rabbitmq-node-health: prevent fd check failing on OSX due to non-numeric fd_used (@thisisjaid)
+
 ## [2.0.0] - 2016-10-17
 ### Added
  - check-rabbitmq-queue-drain.rb: Added a default include-all value for the regex queue filter option
