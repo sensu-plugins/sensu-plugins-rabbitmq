@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [2.0.1] - 2016-10-31
+### Fixed
+- check-rabbitmq-node-health: prevent fd check failing on OSX due to non-numeric fd_used
+
 ## [2.0.0] - 2016-10-17
 ### Added
  - check-rabbitmq-queue-drain.rb: Added a default include-all value for the regex queue filter option
