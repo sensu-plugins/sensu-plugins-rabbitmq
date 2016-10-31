@@ -153,7 +153,9 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
       # Determine % sockets consumed
       psocket = format('%.2f', nodeinfo['sockets_used'].fdiv(nodeinfo['sockets_total']) * 100)
       # Determine % file descriptors consumed
-      pfd = format('%.2f', nodeinfo['fd_used'].fdiv(nodeinfo['fd_total']) * 100)
+      if nodeinfo['fd_used'].is_a?(Numeric)
+        pfd = format('%.2f', nodeinfo['fd_used'].fdiv(nodeinfo['fd_total']) * 100)
+      end
 
       # build status and message
       status = 'ok'
