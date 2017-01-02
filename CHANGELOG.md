@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [2.0.2] - 2017-01-02
+### Added
+ - check-rabbitmq-queue.rb: Added features for using regex in queue name and pretty output
+
 ## [2.0.1] - 2016-10-31
 ### Fixed
 - check-rabbitmq-node-health: prevent fd check failing on OSX due to non-numeric fd_used

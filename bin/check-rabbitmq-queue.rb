@@ -84,6 +84,18 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :regex,
+         description: 'Use queue name as regex pattern',
+         long: '--regex',
+         boolean: true,
+         default: false
+
+  option :pretty,
+         description: 'Prints multiline message',
+         long: '--pretty',
+         boolean: true,
+         default: false
+
   def acquire_rabbitmq_info
     begin
       rabbitmq_info = CarrotTop.new(
@@ -105,27 +117,35 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     rabbitmq = acquire_rabbitmq_info
     queues = rabbitmq.method_missing('/queues/' + config[:vhost])
     config[:queue].each do |q|
-      unless queues.map  { |hash| hash['name'] }.include? q
+      unless (queues.map { |hash| hash['name'] }.include?(q) && config[:regex] == false) || config[:regex] == true
         unless config[:ignore]
           @warn << "Queue #{q} not available"
         end
         next
       end
       queues.each do |queue|
-        next unless queue['name'] == q
+        next unless (queue['name'] == q && config[:regex] == false) || (queue['name'] =~ /#{q}/ && config[:regex] == true)
         total = queue['messages']
         total = 0 if total.nil?
         message total.to_s
-        @crit << "#{q}:#{total}" if total > config[:critical].to_i
-        @warn << "#{q}:#{total}" if total > config[:warn].to_i
+        @crit << "#{queue['name']}:#{total}" if total > config[:critical].to_i
+        @warn << "#{queue['name']}:#{total}" if total > config[:warn].to_i && total < config[:critical].to_i
       end
     end
     if @crit.empty? && @warn.empty?
       ok
     elsif !@crit.empty?
-      critical "critical: #{@crit} warning: #{@warn}"
+      @message_output = "\n" + 'critical:' + "\n" + @crit.join("\n") if config[:pretty]
+      @message_output = "critical: #{@crit}" unless config[:pretty]
+      unless @warn.empty?
+        @message_output += "\n" + 'warning:' + "\n" + @warn.join("\n") if config[:pretty]
+        @message_output += " warning: #{@warn}" unless config[:pretty]
+      end
+      critical @message_output
     elsif !@warn.empty?
-      warning "critical: #{@crit} warning: #{@warn}"
+      @message_output = "\n" + 'warning:' + "\n" + @warn.join("\n") if config[:pretty]
+      @message_output = "warning: #{@warn}" unless config[:pretty]
+      warning @message_output
     end
   end
 end
