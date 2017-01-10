@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- check-rabbitmq-cluster-health.rb: Added option to provide SSL CA certificate
 
 ## [2.1.0] - 2017-01-10
 ### Added
