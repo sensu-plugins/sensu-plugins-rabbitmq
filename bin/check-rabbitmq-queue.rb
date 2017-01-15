@@ -96,6 +96,12 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :below,
+         description: 'If set, values under threshold are counted as warning/critical',
+         long: '--below',
+         boolean: true,
+         default: false
+
   def acquire_rabbitmq_info
     begin
       rabbitmq_info = CarrotTop.new(
@@ -128,8 +134,13 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         total = queue['messages']
         total = 0 if total.nil?
         message total.to_s
-        @crit << "#{queue['name']}:#{total}" if total >= config[:critical].to_i
-        @warn << "#{queue['name']}:#{total}" if total >= config[:warn].to_i && total < config[:critical].to_i
+        unless config[:below]
+          @crit << "#{queue['name']}:#{total}" if total >= config[:critical].to_i
+          @warn << "#{queue['name']}:#{total}" if total >= config[:warn].to_i && total < config[:critical].to_i
+        else
+          @crit << "#{queue['name']}:#{total}" if total <= config[:critical].to_i
+          @warn << "#{queue['name']}:#{total}" if total <= config[:warn].to_i && total > config[:critical].to_i
+        end
       end
     end
     if @crit.empty? && @warn.empty?
