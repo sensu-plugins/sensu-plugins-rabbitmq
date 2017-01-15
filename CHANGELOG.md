@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+ - check-rabbitmq-queue.rb: Added --below feature to specify if value below threshold should generate alert (@alexpekurovsky) 
+
 ### Fixed
  - check-rabbitmq-queue.rb: Fixes for assigning values to critical or warning states (@alexpekurovsky)
 
