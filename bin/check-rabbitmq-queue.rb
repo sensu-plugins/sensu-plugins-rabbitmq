@@ -128,8 +128,8 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         total = queue['messages']
         total = 0 if total.nil?
         message total.to_s
-        @crit << "#{queue['name']}:#{total}" if total > config[:critical].to_i
-        @warn << "#{queue['name']}:#{total}" if total > config[:warn].to_i && total < config[:critical].to_i
+        @crit << "#{queue['name']}:#{total}" if total >= config[:critical].to_i
+        @warn << "#{queue['name']}:#{total}" if total >= config[:warn].to_i && total < config[:critical].to_i
       end
     end
     if @crit.empty? && @warn.empty?

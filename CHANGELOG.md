@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Fixed
+ - check-rabbitmq-queue.rb: Fixes for assigning values to critical or warning states (@alexpekurovsky)
 
 ## [2.1.0] - 2017-01-10
 ### Added
