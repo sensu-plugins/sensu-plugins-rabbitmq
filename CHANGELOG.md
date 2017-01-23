@@ -12,7 +12,6 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Changed
 - bump stomp version to 1.4.3
-- bump sensu-plugin version to 1.4.4
 
 ## [2.1.0] - 2017-01-10
 ### Added
