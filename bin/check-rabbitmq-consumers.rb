@@ -112,20 +112,23 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
     critical = []
     warn = []
 
-    rabbit.queues.each do |queue|
-      # if specific queues were passed only monitor those.
-      # if specific queues to exclude were passed then skip those
-      if config[:queue]
-        next unless config[:queue].include?(queue['name'])
-      elsif config[:exclude]
-        next if config[:exclude].include?(queue['name'])
+    begin
+      rabbit.queues.each do |queue|
+        # if specific queues were passed only monitor those.
+        # if specific queues to exclude were passed then skip those
+        if config[:queue]
+          next unless config[:queue].include?(queue['name'])
+        elsif config[:exclude]
+          next if config[:exclude].include?(queue['name'])
+        end
+        missing.delete(queue['name'])
+        consumers = queue['consumers'] || 0
+        critical.push(queue['name']) if consumers <= config[:critical]
+        warn.push(queue['name']) if consumers <= config[:warn]
       end
-      missing.delete(queue['name'])
-      consumers = queue['consumers']
-      critical.push(queue['name']) if consumers <= config[:critical]
-      warn.push(queue['name']) if consumers <= config[:warn]
+    rescue
+      critical 'Could not find any queue, check rabbitmq server'
     end
-
     return_condition(missing, critical, warn)
   end
 end
