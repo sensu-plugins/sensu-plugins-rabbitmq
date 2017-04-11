@@ -121,7 +121,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
     @crit = []
     @warn = []
     rabbitmq = acquire_rabbitmq_info
-    queues = rabbitmq.method_missing('/queues/' + config[:vhost])
+    queues = rabbitmq.method_missing('queues/' + config[:vhost])
     config[:queue].each do |q|
       unless (queues.map { |hash| hash['name'] }.include?(q) && config[:regex] == false) || config[:regex] == true
         unless config[:ignore]
