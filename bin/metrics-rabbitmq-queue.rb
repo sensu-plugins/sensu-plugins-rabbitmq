@@ -61,7 +61,7 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
   option :scheme,
          description: 'Metric naming scheme, text to prepend to $queue_name.$metric',
          long: '--scheme SCHEME',
-         default: "#{Socket.gethostname}.rabbitmq"
+         default: "rabbitmq"
 
   option :filter,
          description: 'Regular expression for filtering queues',
