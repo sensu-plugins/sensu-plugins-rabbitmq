@@ -12,6 +12,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
  - check-rabbitmq-consumers.rb: Fixes rabbitmq empty value for consumers in some situations (@mdzidic)
  - check-rabbitmq-consumers.rb: Fixes rabbitmq plugin crash when node is in network partition (@mdzidic)
 
+### Changed
+- bump stomp version to 1.4.3
+
 ## [2.1.0] - 2017-01-10
 ### Added
  - check-rabbitmq-queue.rb: Added features for using regex in queue name and pretty output (@alexpekurovsky)
