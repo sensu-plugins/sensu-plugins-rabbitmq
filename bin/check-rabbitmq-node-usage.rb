@@ -173,8 +173,6 @@ class CheckRabbitMQNodeUsage < Sensu::Plugin::Check::CLI
     end
 
     { 'status' => output[:status], 'message' => output[:message] }
-  rescue Errno::ECONNREFUSED => e
-    { 'status' => 'critical', 'message' => e.message }
   rescue => e
     { 'status' => 'unknown', 'message' => e.message }
   end
