@@ -16,6 +16,7 @@
  * bin/check-rabbitmq-messages.rb
  * bin/check-rabbitmq-network-partitions.rb
  * bin/check-rabbitmq-node-health.rb
+ * bin/check-rabbitmq-node-usage.rb
  * bin/check-rabbitmq-queue-drain-time.rb
  * bin/check-rabbitmq-queue.rb
  * bin/check-rabbitmq-stomp-alive.rb
