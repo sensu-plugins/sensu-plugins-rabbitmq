@@ -4,11 +4,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-### [2.3.0] - 2017-05-09
+### Breaking change
+ - Previously some checks used --user to specify username, now all scripts use --username
+
+### Added
+ - --ini option for all checks to specify username and password in a config file (@bootswithdefer)
+
+## [2.3.0] - 2017-05-09
 ### Added
 - check-rabbitmq-node-usage.rb: added new check to look at rmq node resource useage. (@DvaBearqLoza)
 
-### [2.2.0] - 2017-05-08
+## [2.2.0] - 2017-05-08
 ### Added
  - check-rabbitmq-queue.rb: Added --below feature to specify if value below threshold should generate alert (@alexpekurovsky)
 

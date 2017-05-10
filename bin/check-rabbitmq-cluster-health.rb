@@ -28,6 +28,7 @@
 require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
@@ -78,6 +79,11 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
          long: '--ssl_ca_file CA_PATH',
          default: ''
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     res = cluster_healthy?
 
@@ -108,12 +114,19 @@ class CheckRabbitMQCluster < Sensu::Plugin::Check::CLI
   def cluster_healthy?
     host        = config[:host]
     port        = config[:port]
-    username    = config[:username]
-    password    = config[:password]
     ssl         = config[:ssl]
     verify_ssl  = config[:verify_ssl_off]
     nodes       = config[:nodes].split(',')
     ssl_ca_file = config[:ssl_ca_file]
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
 
     begin
       url_prefix = ssl ? 'https' : 'http'

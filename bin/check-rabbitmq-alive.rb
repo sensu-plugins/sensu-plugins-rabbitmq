@@ -24,6 +24,7 @@
 require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
@@ -69,6 +70,11 @@ class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     res = vhost_alive?
 
@@ -84,11 +90,18 @@ class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
   def vhost_alive?
     host       = config[:host]
     port       = config[:port]
-    username   = config[:username]
-    password   = config[:password]
     vhost      = config[:vhost]
     ssl        = config[:ssl]
     verify_ssl = config[:verify_ssl_off]
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
 
     begin
       resource = RestClient::Resource.new(

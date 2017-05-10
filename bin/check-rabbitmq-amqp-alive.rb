@@ -22,6 +22,7 @@
 
 require 'sensu-plugin/check/cli'
 require 'bunny'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
@@ -77,6 +78,11 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
          boolean: true,
          default: true
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     res = vhost_alive?
 
@@ -92,13 +98,20 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
   def vhost_alive?
     host           = config[:host]
     port           = config[:port]
-    username       = config[:username]
-    password       = config[:password]
     vhost          = config[:vhost]
     ssl            = config[:ssl]
     tls_cert       = config[:tls_cert]
     tls_key        = config[:tls_key]
     no_verify_peer = config[:no_verify_peer]
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
 
     begin
       conn = Bunny.new("amqp#{ssl ? 's' : ''}://#{username}:#{password}@#{host}:#{port}/#{vhost}",
