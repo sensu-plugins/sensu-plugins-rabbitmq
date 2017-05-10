@@ -26,6 +26,7 @@
 
 require 'sensu-plugin/check/cli'
 require 'stomp'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitStomp < Sensu::Plugin::Check::CLI
@@ -65,6 +66,11 @@ class CheckRabbitStomp < Sensu::Plugin::Check::CLI
          long: '--queue QUEUE',
          default: 'aliveness-test'
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     res = vhost_alive?
 
@@ -78,11 +84,21 @@ class CheckRabbitStomp < Sensu::Plugin::Check::CLI
   end
 
   def vhost_alive?
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
+
     hash = {
       hosts: [
         {
-          login: config[:username],
-          passcode: config[:password],
+          login: username,
+          passcode: password,
           host: config[:host],
           port: config[:port],
           ssl: config[:ssl]

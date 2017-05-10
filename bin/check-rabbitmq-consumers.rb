@@ -24,6 +24,7 @@
 
 require 'sensu-plugin/check/cli'
 require 'carrot-top'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
@@ -44,9 +45,9 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
-  option :user,
+  option :username,
          description: 'RabbitMQ management API user',
-         long: '--user USER',
+         long: '--username USER',
          default: 'guest'
 
   option :password,
@@ -78,13 +79,28 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 2
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def rabbit
     begin
+      if config[:ini]
+        ini = IniFile.load(config[:ini])
+        section = ini['auth']
+        username = section['username']
+        password = section['password']
+      else
+        username = config[:username]
+        password = config[:password]
+      end
+
       connection = CarrotTop.new(
         host: config[:host],
         port: config[:port],
-        user: config[:user],
-        password: config[:password],
+        user: username,
+        password: password,
         ssl: config[:ssl]
       )
     rescue

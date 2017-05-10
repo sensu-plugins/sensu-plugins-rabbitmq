@@ -29,6 +29,7 @@
 require 'sensu-plugin/check/cli'
 require 'socket'
 require 'carrot-top'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
@@ -48,9 +49,9 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
          short: '-v',
          long: '--vhost VHOST'
 
-  option :user,
+  option :username,
          description: 'RabbitMQ management API user',
-         long: '--user USER',
+         long: '--username USER',
          default: 'guest'
 
   option :password,
@@ -81,13 +82,28 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
          description: 'CRITICAL time that messages will process at current rate',
          default: 360
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def acquire_rabbitmq_queues
     begin
+      if config[:ini]
+        ini = IniFile.load(config[:ini])
+        section = ini['auth']
+        username = section['username']
+        password = section['password']
+      else
+        username = config[:username]
+        password = config[:password]
+      end
+
       rabbitmq_info = CarrotTop.new(
         host: config[:host],
         port: config[:port],
-        user: config[:user],
-        password: config[:password],
+        user: username,
+        password: password,
         ssl: config[:ssl]
       )
     rescue

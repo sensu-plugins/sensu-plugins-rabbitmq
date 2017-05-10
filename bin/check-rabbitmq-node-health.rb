@@ -28,6 +28,7 @@
 require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
@@ -115,6 +116,11 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
          long: '--alarms BOOLEAN',
          default: 'true'
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     res = node_healthy?
 
@@ -136,6 +142,15 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
     password   = config[:password]
     ssl        = config[:ssl]
     verify_ssl = config[:verify_ssl_off]
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
 
     begin
       url_prefix = ssl ? 'https' : 'http'

@@ -39,6 +39,7 @@
 require 'sensu-plugin/metric/cli'
 require 'socket'
 require 'carrot-top'
+require 'inifile'
 
 # main plugin class
 class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
@@ -53,9 +54,9 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
          proc: proc(&:to_i),
          default: 15_672
 
-  option :user,
+  option :username,
          description: 'RabbitMQ management API user',
-         long: '--user USER',
+         long: '--username USER',
          default: 'guest'
 
   option :password,
@@ -74,13 +75,28 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
          boolean: true,
          default: false
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def acquire_rabbitmq_info
     begin
+      if config[:ini]
+        ini = IniFile.load(config[:ini])
+        section = ini['auth']
+        username = section['username']
+        password = section['password']
+      else
+        username = config[:username]
+        password = config[:password]
+      end
+
       rabbitmq_info = CarrotTop.new(
         host: config[:host],
         port: config[:port],
-        user: config[:user],
-        password: config[:password],
+        user: username,
+        password: password,
         ssl: config[:ssl]
       )
     rescue

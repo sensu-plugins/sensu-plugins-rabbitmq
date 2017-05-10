@@ -24,6 +24,7 @@
 
 require 'sensu-plugin/check/cli'
 require 'carrot-top'
+require 'inifile'
 
 # main plugin class
 class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
@@ -57,6 +58,11 @@ class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
   def run
     critical 'network partition detected' if partition?
     ok 'no network partition detected'
@@ -71,11 +77,21 @@ class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
   end
 
   def rabbitmq_management
+    if config[:ini]
+      ini = IniFile.load(config[:ini])
+      section = ini['auth']
+      username = section['username']
+      password = section['password']
+    else
+      username = config[:username]
+      password = config[:password]
+    end
+
     CarrotTop.new(
       host: config[:host],
       port: config[:port],
-      user: config[:username],
-      password: config[:password],
+      user: username,
+      password: password,
       ssl: config[:ssl]
     )
   end
