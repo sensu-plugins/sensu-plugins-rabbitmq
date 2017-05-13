@@ -5,11 +5,12 @@
 # ===
 #
 # DESCRIPTION:
-# This plugin checks gathers the following per queue rabbitmq metrics:
+# This plugin checks gathers by default the following per queue rabbitmq metrics:
 #   - message count
 #   - average egress rate
 #   - "drain time" metric, which is the time a queue will take to reach 0 based on the egress rate
 #   - consumer count
+# The list of gathered metrics can also be specified with an option
 #
 # PLATFORMS:
 #   Linux, BSD, Solaris
@@ -22,6 +23,7 @@
 # LICENSE:
 # Copyright 2011 Sonian, Inc <chefs@sonian.net>
 # Copyright 2015 Tim Smith <tim@cozy.co> and Cozy Services Ltd.
+# Copyright 2017 Romain Thouvenin <romain@thouvenin.pro>
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
@@ -68,6 +70,11 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Regular expression for filtering queues',
          long: '--filter REGEX'
 
+  option :metrics,
+         description: 'Regular expression for filtering metrics in each queue',
+         long: '--metrics REGEX',
+         default: '^messages$|consumers|drain_time|avg_egress'
+
   option :ssl,
          description: 'Enable SSL for connection to the API',
          long: '--ssl',
@@ -109,6 +116,17 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
     rabbitmq_info.queues
   end
 
+  def dotted_keys(hash, prefix = '', keys = [])
+    hash.each do |k, v|
+      if v.is_a? Hash
+        keys = dotted_keys(v, prefix + k + '.', keys)
+      else
+        keys << prefix + k
+      end
+    end
+    keys
+  end
+
   def run
     timestamp = Time.now.to_i
     acquire_rabbitmq_queues.each do |queue|
@@ -120,16 +138,21 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
       queue['messages'] ||= 0
       drain_time = queue['messages'] / queue['backing_queue_status']['avg_egress_rate']
       drain_time = 0 if drain_time.nan? || drain_time.infinite? # 0 rate with 0 messages is 0 time to drain
-      output([config[:scheme], queue['name'], 'drain_time'].join('.'), drain_time.to_i, timestamp)
+      queue['drain_time'] = drain_time.to_i
 
-      %w(messages consumers).each do |metric|
-        output([config[:scheme], queue['name'], metric].join('.'), queue[metric], timestamp)
+      metrics = dotted_keys(queue)
+      metrics.each do |metric|
+        next unless metric.match(config[:metrics])
+        value = queue.dig(*metric.split('.'))
+        # Special case of *gress rates for backward-compatibility
+        if metric =~ 'backing_queue_status.avg'
+          value = format('%.4f', value)
+          metric = metric.split('.')[-1]
+        end
+        output("#{config[:scheme]}.#{queue['name']}.#{metric}", value, timestamp) unless value.nil?
       end
-
-      # fetch the average egress rate of the queue
-      rate = format('%.4f', queue['backing_queue_status']['avg_egress_rate'])
-      output([config[:scheme], queue['name'], 'avg_egress_rate'].join('.'), rate, timestamp)
     end
+
     ok
   end
 end
