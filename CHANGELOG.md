@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+ - metrics-rabbitmq-queue.rb: --metrics option to specifiy which metrics to gather
+
 ## [3.0.0] - 2017-05-10
 ### Breaking change
  - Previously some checks used --user to specify username, now all scripts use --username
