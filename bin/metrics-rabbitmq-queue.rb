@@ -144,7 +144,7 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
       metrics.each do |metric|
         next unless metric.match(config[:metrics])
         value = queue.dig(*metric.split('.'))
-        # Special case of *gress rates for backward-compatibility
+        # Special case of ingress and egress rates for backward-compatibility
         if metric =~ 'backing_queue_status.avg'
           value = format('%.4f', value)
           metric = metric.split('.')[-1]
