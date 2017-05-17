@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+ - metrics-rabbitmq-queue.rb: Fix use of =~ operator
+
 ## [3.1.0] - 2017-05-16
 ### Added
  - metrics-rabbitmq-queue.rb: --metrics option to specifiy which metrics to gather (@rthouvenin)
