@@ -1,11 +1,13 @@
-#Change Log
+# Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [3.2.0] - 2017-06-20
 ### Added
- - metrics-rabbitmq-exchange: new metrics for exchange, working similarly to queue metrics
+ - metrics-rabbitmq-exchange: new metrics for exchange, working similarly to queue metrics (@rthouvenin)
 
 ## [3.1.1] - 2017-05-17
 ### Fixed
@@ -140,7 +142,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.1.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.2.0...HEAD
+[3.2.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.1.1...3.2.0
 [3.1.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/2.3.0...3.0.0
