@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+ - metrics-rabbitmq-exchange: new metrics for exchange, working similarly to queue metrics
+
 ## [3.1.1] - 2017-05-17
 ### Fixed
  - metrics-rabbitmq-queue.rb: Fix use of =~ operator

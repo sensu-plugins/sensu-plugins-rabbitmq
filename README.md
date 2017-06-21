@@ -22,6 +22,7 @@
  * bin/check-rabbitmq-stomp-alive.rb
  * bin/metrics-rabbitmq-overview.rb
  * bin/metrics-rabbitmq-queue.rb
+ * bin/metrics-rabbitmq-exchange.rb
 
 ## Usage
 
