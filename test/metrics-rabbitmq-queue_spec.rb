@@ -45,10 +45,6 @@ def q2
   }
 end
 
-def timestamp
-  kind_of Numeric
-end
-
 describe RabbitMQMetrics, 'run' do
   let(:check) do
     RabbitMQMetrics.new 
