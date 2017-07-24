@@ -45,20 +45,20 @@ def q2
   }
 end
 
-describe RabbitMQMetrics, 'run' do
+describe RabbitMQQueueMetrics, 'run' do
   let(:check) do
-    RabbitMQMetrics.new 
+    RabbitMQQueueMetrics.new 
   end
 
   it "should output nothing and return ok when there are no queues" do
-    allow(check).to receive(:acquire_rabbitmq_queues).and_return []
+    allow(check).to receive(:acquire_rabbitmq_info).and_return []
     expect(check).not_to receive(:output)
     expect(check).to receive(:ok)
     check.run
   end
 
   it "should by default output all queues and a spefific set of metrics" do
-    allow(check).to receive(:acquire_rabbitmq_queues).and_return [q1, q2]
+    allow(check).to receive(:acquire_rabbitmq_info).and_return [q1, q2]
 
     expect(check).to receive(:output).with(/.+.rabbitmq.q1.messages$/, 42, timestamp)
     expect(check).to receive(:output).with(/.+.rabbitmq.q1.consumers$/, 1, timestamp)
@@ -76,7 +76,7 @@ describe RabbitMQMetrics, 'run' do
 
   it "should output only the queues specified by the filter option" do
     check.config[:filter] = '.2'
-    allow(check).to receive(:acquire_rabbitmq_queues).and_return [q1, q2]
+    allow(check).to receive(:acquire_rabbitmq_info).and_return [q1, q2]
     expect(check).not_to receive(:output).with(/q1/, any_args)
     expect(check).to receive(:output).with(/q2/, any_args).exactly(4).times
     expect(check).to receive(:ok)
@@ -85,7 +85,7 @@ describe RabbitMQMetrics, 'run' do
 
   it "should output only the metrics specified by the metrics option" do
     check.config[:metrics] = 'message_details|consumers'
-    allow(check).to receive(:acquire_rabbitmq_queues).and_return [q2]
+    allow(check).to receive(:acquire_rabbitmq_info).and_return [q2]
     expect(check).to receive(:output).with(/q2.consumers$/, 0, timestamp)
     expect(check).to receive(:output).with(/q2.message_details.messages_ready$/, 0, timestamp)
     expect(check).to receive(:ok)
