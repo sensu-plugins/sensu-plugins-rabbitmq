@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 #  encoding: UTF-8
+
 #
 # RabbitMQ check node health plugin
 # ===
@@ -161,16 +162,16 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
     node_prefix = config[:node_prefix]
 
     # Determine node hostname to query, as this may not be the same as connection hostname
-    if config[:node_host]
-      # Statically set by config
-      node_host = config[:node_host]
-    elsif config[:node_use_fqdn]
-      # Resolved from system running check, full FQDN, the same as RABBITMQ_USE_LONGNAME
-      node_host = Socket.gethostname
-    else
-      # Default of short hostname, resolved from system
-      node_host = Socket.gethostname.partition('.').first
-    end
+    node_host = if config[:node_host]
+                  # Statically set by config
+                  config[:node_host]
+                elsif config[:node_use_fqdn]
+                  # Resolved from system running check, full FQDN, the same as RABBITMQ_USE_LONGNAME
+                  Socket.gethostname
+                else
+                  # Default of short hostname, resolved from system
+                  Socket.gethostname.partition('.').first
+                end
 
     if config[:ini]
       ini = IniFile.load(config[:ini])
