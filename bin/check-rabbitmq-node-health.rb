@@ -152,12 +152,12 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
   end
 
   def node_healthy?
-    host       = config[:host]
-    port       = config[:port]
-    username   = config[:username]
-    password   = config[:password]
-    ssl        = config[:ssl]
-    verify_ssl = config[:verify_ssl_off]
+    host        = config[:host]
+    port        = config[:port]
+    username    = config[:username]
+    password    = config[:password]
+    ssl         = config[:ssl]
+    verify_ssl  = config[:verify_ssl_off]
     node_prefix = config[:node_prefix]
 
     # Determine node hostname to query, as this may not be the same as connection hostname
