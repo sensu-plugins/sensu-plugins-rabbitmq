@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 ### Added
+- Proper node definition support for node health check (@Infraded)
 - ruby 2.4 support (@majormoses)
 
 ### Fixed

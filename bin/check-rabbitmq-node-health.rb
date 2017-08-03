@@ -29,6 +29,7 @@ require 'sensu-plugin/check/cli'
 require 'json'
 require 'rest_client'
 require 'inifile'
+require 'socket'
 
 # main plugin class
 class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
@@ -55,6 +56,21 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
          short: '-P',
          long: '--port PORT',
          default: '15672'
+
+  option :node_prefix,
+         description: 'RabbitMQ node prefix (eg. rabbit in rabbit@hostname)',
+         long: '--prefix NODENAME',
+         default: 'rabbit'
+
+  option :node_use_fqdn,
+         description: 'Use FQDN for determining node hostname',
+         long: '--fqdn',
+         boolean: true,
+         default: false
+
+  option :node_host,
+         description: 'RabbitMQ node name override (eg. hostname in rabbit@hostname)',
+         long: '--nodehost HOSTNAME'
 
   option :ssl,
          description: 'Enable SSL for connection to the API',
@@ -142,6 +158,20 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
     password   = config[:password]
     ssl        = config[:ssl]
     verify_ssl = config[:verify_ssl_off]
+    node_prefix = config[:node_prefix]
+
+    # Determine node hostname to query, as this may not be the same as connection hostname
+    if config[:node_host]
+      # Statically set by config
+      node_host = config[:node_host]
+    elsif config[:node_use_fqdn]
+      # Resolved from system running check, full FQDN, the same as RABBITMQ_USE_LONGNAME
+      node_host = Socket.gethostname
+    else
+      # Default of short hostname, resolved from system
+      node_host = Socket.gethostname.partition('.').first
+    end
+
     if config[:ini]
       ini = IniFile.load(config[:ini])
       section = ini['auth']
@@ -154,14 +184,15 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
 
     begin
       url_prefix = ssl ? 'https' : 'http'
+      node = "#{node_prefix}@#{node_host}"
       resource = RestClient::Resource.new(
-        "#{url_prefix}://#{host}:#{port}/api/nodes",
+        "#{url_prefix}://#{host}:#{port}/api/nodes/#{node}",
         user: username,
         password: password,
         verify_ssl: !verify_ssl
       )
       # Parse our json data
-      nodeinfo = JSON.parse(resource.get)[0]
+      nodeinfo = JSON.parse(resource.get)
 
       # Determine % memory consumed
       pmem = format('%.2f', nodeinfo['mem_used'].fdiv(nodeinfo['mem_limit']) * 100)
