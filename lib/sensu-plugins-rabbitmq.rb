@@ -1,6 +1,79 @@
-require 'sensu-plugins-rabbitmq/version'
+require 'sensu-plugin/check/cli'
 require 'sensu-plugin/metric/cli'
 require 'socket'
+
+require 'sensu-plugins-rabbitmq/version'
+
+
+class RabbitMQCheck < Sensu::Plugin::Check::CLI
+  option :host,
+         description: 'RabbitMQ management API host',
+         long: '--host HOST',
+         default: 'localhost'
+
+  option :port,
+         description: 'RabbitMQ management API port',
+         long: '--port PORT',
+         proc: proc(&:to_i),
+         default: 15_672
+
+  option :vhost,
+         description: 'RabbitMQ vhost',
+         short: '-v',
+         long: '--vhost VHOST',
+         default: ''
+
+  option :ssl,
+         description: 'Enable SSL for connection to the API',
+         long: '--ssl',
+         boolean: true,
+         default: false
+
+  option :username,
+         description: 'RabbitMQ management API user',
+         long: '--username USER',
+         default: 'guest'
+
+  option :password,
+         description: 'RabbitMQ management API password',
+         long: '--password PASSWORD',
+         default: 'guest'
+
+  option :ini,
+         description: 'Configuration ini file',
+         short: '-i',
+         long: '--ini VALUE'
+
+  def acquire_rabbitmq_info
+    begin
+      if config[:ini]
+        ini = IniFile.load(config[:ini])
+        section = ini['auth']
+        username = section['username']
+        password = section['password']
+      else
+        username = config[:username]
+        password = config[:password]
+      end
+
+      rabbitmq_info = CarrotTop.new(
+        host: config[:host],
+        port: config[:port],
+        user: username,
+        password: password,
+        ssl: config[:ssl]
+      )
+    rescue
+      warning 'could not get rabbitmq info'
+    end
+    rabbitmq_info
+  end
+
+  # To avoid complaints from mother class at the end of tests (at_exit handler)
+  def run
+    ok
+  end
+end
 
 class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
   option :host,

@@ -21,46 +21,10 @@
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
 
-require 'sensu-plugin/check/cli'
-require 'socket'
-require 'carrot-top'
-require 'inifile'
+require 'sensu-plugins-rabbitmq'
 
 # main plugin class
-class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
-  option :host,
-         description: 'RabbitMQ management API host',
-         long: '--host HOST',
-         default: 'localhost'
-
-  option :port,
-         description: 'RabbitMQ management API port',
-         long: '--port PORT',
-         proc: proc(&:to_i),
-         default: 15_672
-
-  option :vhost,
-         description: 'RabbitMQ vhost',
-         short: '-v',
-         long: '--vhost VHOST',
-         default: ''
-
-  option :ssl,
-         description: 'Enable SSL for connection to the API',
-         long: '--ssl',
-         boolean: true,
-         default: false
-
-  option :username,
-         description: 'RabbitMQ management API user',
-         long: '--username USER',
-         default: 'guest'
-
-  option :password,
-         description: 'RabbitMQ management API password',
-         long: '--password PASSWORD',
-         default: 'guest'
-
+class CheckRabbitMQMessages < RabbitMQCheck
   option :queue,
          description: 'RabbitMQ queue to monitor',
          long: '--queue queue_names',
@@ -102,36 +66,6 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
          long: '--below',
          boolean: true,
          default: false
-
-  option :ini,
-         description: 'Configuration ini file',
-         short: '-i',
-         long: '--ini VALUE'
-
-  def acquire_rabbitmq_info
-    begin
-      if config[:ini]
-        ini = IniFile.load(config[:ini])
-        section = ini['auth']
-        username = section['username']
-        password = section['password']
-      else
-        username = config[:username]
-        password = config[:password]
-      end
-
-      rabbitmq_info = CarrotTop.new(
-        host: config[:host],
-        port: config[:port],
-        user: username,
-        password: password,
-        ssl: config[:ssl]
-      )
-    rescue
-      warning 'could not get rabbitmq info'
-    end
-    rabbitmq_info
-  end
 
   def run
     @crit = []
