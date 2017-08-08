@@ -29,8 +29,6 @@
 # for details.
 
 require 'sensu-plugins-rabbitmq'
-require 'carrot-top'
-require 'inifile'
 
 # main plugin class
 class RabbitMQQueueMetrics < RabbitMQMetrics

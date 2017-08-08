@@ -30,7 +30,6 @@ require 'inifile'
 
 # main plugin class
 class RabbitMQExchangeMetrics < RabbitMQMetrics
-
   option :filter,
          description: 'Regular expression for filtering exchanges',
          long: '--filter REGEX'
