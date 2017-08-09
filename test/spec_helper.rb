@@ -27,4 +27,3 @@ CodeClimate::TestReporter.start
 def timestamp
   kind_of Numeric
 end
-

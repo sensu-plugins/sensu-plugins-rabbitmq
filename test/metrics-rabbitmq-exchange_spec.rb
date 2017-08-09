@@ -29,7 +29,7 @@ def e1
     'name' => 'e1',
     'type' => 'topic',
     'durable' => 'true',
-    'message_stats' => {'publish' => 100, 'ack' => 50}
+    'message_stats' => { 'publish' => 100, 'ack' => 50 }
   }
 end
 
@@ -43,17 +43,17 @@ end
 
 describe RabbitMQExchangeMetrics, 'run' do
   let(:check) do
-    RabbitMQExchangeMetrics.new 
+    RabbitMQExchangeMetrics.new
   end
 
-  it "should output nothing and return ok when there are no exchanges" do
+  it 'should output nothing and return ok when there are no exchanges' do
     allow(check).to receive(:acquire_rabbitmq_info).and_return []
     expect(check).not_to receive(:output)
     expect(check).to receive(:ok)
     check.run
   end
 
-  it "should by default output all exchanges and all metrics" do
+  it 'should by default output all exchanges and all metrics' do
     allow(check).to receive(:acquire_rabbitmq_info).and_return [e1, e2]
 
     expect(check).to receive(:output).with(/.+.rabbitmq.e1.name$/, 'e1', timestamp)
@@ -70,7 +70,7 @@ describe RabbitMQExchangeMetrics, 'run' do
     check.run
   end
 
-  it "should output only the exchanges specified by the filter option" do
+  it 'should output only the exchanges specified by the filter option' do
     check.config[:filter] = '.2'
     allow(check).to receive(:acquire_rabbitmq_info).and_return [e1, e2]
     expect(check).not_to receive(:output).with(/e1/, any_args)
@@ -79,7 +79,7 @@ describe RabbitMQExchangeMetrics, 'run' do
     check.run
   end
 
-  it "should output only the metrics specified by the metrics option" do
+  it 'should output only the metrics specified by the metrics option' do
     check.config[:metrics] = 'message_stats'
     allow(check).to receive(:acquire_rabbitmq_info).and_return [e1]
     expect(check).to receive(:output).with(/e1.message_stats.publish$/, 100, timestamp)
@@ -87,5 +87,4 @@ describe RabbitMQExchangeMetrics, 'run' do
     expect(check).to receive(:ok)
     check.run
   end
-
-end 
+end

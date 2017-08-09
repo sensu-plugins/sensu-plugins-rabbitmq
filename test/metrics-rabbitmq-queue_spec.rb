@@ -29,7 +29,7 @@ def q1
     'name' => 'q1',
     'messages' => 42,
     'consumers' => 1,
-    'backing_queue_status' => {'avg_egress_rate' => 4.2}
+    'backing_queue_status' => { 'avg_egress_rate' => 4.2 }
   }
 end
 
@@ -40,24 +40,24 @@ def q2
     'state' => 'running',
     'messages' => 0,
     'consumers' => 0,
-    'backing_queue_status' => {'avg_egress_rate' => 0.123456e-123},
-    'message_details' => {'messages_ready' => 0}
+    'backing_queue_status' => { 'avg_egress_rate' => 0.123456e-123 },
+    'message_details' => { 'messages_ready' => 0 }
   }
 end
 
 describe RabbitMQQueueMetrics, 'run' do
   let(:check) do
-    RabbitMQQueueMetrics.new 
+    RabbitMQQueueMetrics.new
   end
 
-  it "should output nothing and return ok when there are no queues" do
+  it 'should output nothing and return ok when there are no queues' do
     allow(check).to receive(:acquire_rabbitmq_info).and_return []
     expect(check).not_to receive(:output)
     expect(check).to receive(:ok)
     check.run
   end
 
-  it "should by default output all queues and a spefific set of metrics" do
+  it 'should by default output all queues and a spefific set of metrics' do
     allow(check).to receive(:acquire_rabbitmq_info).and_return [q1, q2]
 
     expect(check).to receive(:output).with(/.+.rabbitmq.q1.messages$/, 42, timestamp)
@@ -74,7 +74,7 @@ describe RabbitMQQueueMetrics, 'run' do
     check.run
   end
 
-  it "should output only the queues specified by the filter option" do
+  it 'should output only the queues specified by the filter option' do
     check.config[:filter] = '.2'
     allow(check).to receive(:acquire_rabbitmq_info).and_return [q1, q2]
     expect(check).not_to receive(:output).with(/q1/, any_args)
@@ -83,7 +83,7 @@ describe RabbitMQQueueMetrics, 'run' do
     check.run
   end
 
-  it "should output only the metrics specified by the metrics option" do
+  it 'should output only the metrics specified by the metrics option' do
     check.config[:metrics] = 'message_details|consumers'
     allow(check).to receive(:acquire_rabbitmq_info).and_return [q2]
     expect(check).to receive(:output).with(/q2.consumers$/, 0, timestamp)
@@ -91,5 +91,4 @@ describe RabbitMQQueueMetrics, 'run' do
     expect(check).to receive(:ok)
     check.run
   end
-
-end 
+end

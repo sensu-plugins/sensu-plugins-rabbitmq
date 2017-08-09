@@ -51,7 +51,7 @@ module Sensu
         end
       end
 
-      def acquire_rabbitmq_info(property=nil)
+      def acquire_rabbitmq_info(property = nil)
         begin
           if config[:ini]
             ini = IniFile.load(config[:ini])
