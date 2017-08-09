@@ -1,6 +1,8 @@
 require 'sensu-plugin/check/cli'
 require 'sensu-plugin/metric/cli'
 require 'socket'
+require 'carrot-top'
+require 'inifile'
 
 require 'sensu-plugins-rabbitmq/version'
 
@@ -49,6 +51,41 @@ module Sensu
         end
       end
 
+      def acquire_rabbitmq_info(property=nil)
+        begin
+          if config[:ini]
+            ini = IniFile.load(config[:ini])
+            section = ini['auth']
+            username = section['username']
+            password = section['password']
+          else
+            username = config[:username]
+            password = config[:password]
+          end
+
+          rabbitmq_info = CarrotTop.new(
+            host: config[:host],
+            port: config[:port],
+            user: username,
+            password: password,
+            ssl: config[:ssl]
+          )
+        rescue Exception => e
+          p e
+          warning 'could not get rabbitmq info'
+        end
+
+        result_info = rabbitmq_info
+        unless property.nil?
+          result_info = rabbitmq_info.send property
+          if config[:vhost] != ''
+            result_info.select! { |x| x['vhost'].match(config[:vhost]) }
+          end
+        end
+
+        result_info
+      end
+
       def self.included(receiver)
         receiver.extend(Sensu::Plugin::RabbitMQ::Options)
         receiver.add_common_options
@@ -59,31 +96,6 @@ end
 
 class RabbitMQCheck < Sensu::Plugin::Check::CLI
   include Sensu::Plugin::RabbitMQ
-
-  def acquire_rabbitmq_info
-    begin
-      if config[:ini]
-        ini = IniFile.load(config[:ini])
-        section = ini['auth']
-        username = section['username']
-        password = section['password']
-      else
-        username = config[:username]
-        password = config[:password]
-      end
-
-      rabbitmq_info = CarrotTop.new(
-        host: config[:host],
-        port: config[:port],
-        user: username,
-        password: password,
-        ssl: config[:ssl]
-      )
-    rescue
-      warning 'could not get rabbitmq info'
-    end
-    rabbitmq_info
-  end
 
   # To avoid complaints from mother class at the end of tests (at_exit handler)
   def run
@@ -98,37 +110,6 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Metric naming scheme',
          long: '--scheme SCHEME',
          default: "#{Socket.gethostname}.rabbitmq"
-
-  def acquire_rabbitmq_info(property)
-    begin
-      if config[:ini]
-        ini = IniFile.load(config[:ini])
-        section = ini['auth']
-        username = section['username']
-        password = section['password']
-      else
-        username = config[:username]
-        password = config[:password]
-      end
-
-      rabbitmq_info = CarrotTop.new(
-        host: config[:host],
-        port: config[:port],
-        user: username,
-        password: password,
-        ssl: config[:ssl]
-      )
-    rescue
-      warning 'could not get rabbitmq info'
-    end
-
-    result_info = rabbitmq_info.send property
-    if config[:vhost]
-      return result_info.select { |x| x['vhost'].match(config[:vhost]) }
-    end
-
-    result_info
-  end
 
   def dotted_keys(hash, prefix = '', keys = [])
     hash.each do |k, v|
