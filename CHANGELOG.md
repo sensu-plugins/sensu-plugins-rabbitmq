@@ -5,10 +5,13 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 ### Added
-- ruby 2.4 support (@majormoses)
-
+ - ruby 2.4 support (@majormoses)
+ - RabbitMQ module with common code (@rthouvenin)
+ - Check and Metrics base classes (@rthouvenin)
+### Changed
+ - metrics-rabbitmq-queue, metrics-rabbitmq-exchange, check-rabbitmq-queue: use the new base classes (@rthouvenin)
 ### Fixed
-- PR template spelling (@majormoses)
+ - PR template spelling (@majormoses)
 
 ## [3.2.0] - 2017-06-20
 ### Added
