@@ -27,7 +27,7 @@
 require 'sensu-plugins-rabbitmq'
 
 # main plugin class
-class RabbitMQExchangeMetrics < RabbitMQMetrics
+class RabbitMQExchangeMetrics < Sensu::Plugin::RabbitMQ::Metrics
   option :filter,
          description: 'Regular expression for filtering exchanges',
          long: '--filter REGEX'

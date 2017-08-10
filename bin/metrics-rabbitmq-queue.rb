@@ -31,7 +31,7 @@
 require 'sensu-plugins-rabbitmq'
 
 # main plugin class
-class RabbitMQQueueMetrics < RabbitMQMetrics
+class RabbitMQQueueMetrics < Sensu::Plugin::RabbitMQ::Metrics
   option :filter,
          description: 'Regular expression for filtering queues',
          long: '--filter REGEX'

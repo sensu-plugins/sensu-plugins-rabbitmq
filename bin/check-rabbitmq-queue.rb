@@ -24,7 +24,7 @@
 require 'sensu-plugins-rabbitmq'
 
 # main plugin class
-class CheckRabbitMQMessages < RabbitMQCheck
+class CheckRabbitMQMessages < Sensu::Plugin::RabbitMQ::Check
   option :queue,
          description: 'RabbitMQ queue to monitor',
          long: '--queue queue_names',
