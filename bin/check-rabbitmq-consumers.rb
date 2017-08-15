@@ -65,6 +65,12 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
          long: '--exclude queue_name',
          proc: proc { |q| q.split(',') }
 
+  option :regex,
+         description: 'Treat the --queue flag as a regular expression.',
+         long: '--regex',
+         boolean: true,
+         default: false
+
   option :warn,
          short: '-w NUM_CONSUMERS',
          long: '--warn NUM_CONSUMERS',
@@ -124,7 +130,11 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
 
   def run
     # create arrays to hold failures
-    missing = config[:queue] || []
+    if config[:regex]
+      missing = []
+    else
+      missing = config[:queue] || []
+    end
     critical = []
     warn = []
 
@@ -132,10 +142,14 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
       rabbit.queues.each do |queue|
         # if specific queues were passed only monitor those.
         # if specific queues to exclude were passed then skip those
-        if config[:queue]
-          next unless config[:queue].include?(queue['name'])
-        elsif config[:exclude]
-          next if config[:exclude].include?(queue['name'])
+        if config[:regex]
+          next unless queue['name'] =~ /#{config[:queue].first}/
+        else
+          if config[:queue]
+            next unless config[:queue].include?(queue['name'])
+          elsif config[:exclude]
+            next if config[:exclude].include?(queue['name'])
+          end
         end
         missing.delete(queue['name'])
         consumers = queue['consumers'] || 0
