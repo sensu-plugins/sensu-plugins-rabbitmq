@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #  encoding: UTF-8
-#
+
 # Check RabbitMQ consumers
 # ===
 #
@@ -130,11 +130,11 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
 
   def run
     # create arrays to hold failures
-    if config[:regex]
-      missing = []
-    else
-      missing = config[:queue] || []
-    end
+    missing = if config[:regex]
+                []
+              else
+                config[:queue] || []
+              end
     critical = []
     warn = []
 
@@ -144,12 +144,10 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
         # if specific queues to exclude were passed then skip those
         if config[:regex]
           next unless queue['name'] =~ /#{config[:queue].first}/
-        else
-          if config[:queue]
-            next unless config[:queue].include?(queue['name'])
-          elsif config[:exclude]
-            next if config[:exclude].include?(queue['name'])
-          end
+        elsif config[:queue]
+          next unless config[:queue].include?(queue['name'])
+        elsif config[:exclude]
+          next if config[:exclude].include?(queue['name'])
         end
         missing.delete(queue['name'])
         consumers = queue['consumers'] || 0
