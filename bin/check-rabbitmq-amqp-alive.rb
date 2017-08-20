@@ -78,6 +78,18 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
          boolean: true,
          default: true
 
+  option :heartbeat,
+         description: 'Client heartbeat interval',
+         long: '--heartbeat HB',
+         proc: proc(&:to_i),
+         default: 0
+
+  option :threaded,
+         description: 'Enables threaded connections',
+         long: '--threaded THREAD',
+         boolean: true,
+         default: true
+
   option :ini,
          description: 'Configuration ini file',
          short: '-i',
@@ -103,6 +115,9 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
     tls_cert       = config[:tls_cert]
     tls_key        = config[:tls_key]
     no_verify_peer = config[:no_verify_peer]
+    heartbeat      = config[:heartbeat]
+    threaded       = config[:threaded]
+
     if config[:ini]
       ini = IniFile.load(config[:ini])
       section = ini['auth']
@@ -117,7 +132,9 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
       conn = Bunny.new("amqp#{ssl ? 's' : ''}://#{username}:#{password}@#{host}:#{port}/#{vhost}",
                        tls_cert:    tls_cert,
                        tls_key:     tls_key,
-                       verify_peer: no_verify_peer)
+                       verify_peer: no_verify_peer,
+                       heartbeat:   heartbeat,
+                       threaded:    threaded)
       conn.start
       conn.close if conn.connected?
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }

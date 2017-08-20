@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### check-rabbitmq-amqp-alive.rb: Added threading and heartbeat interval options (@bdeo)
 
 ## [3.3.0] - 2017-08-20
 ### Added
