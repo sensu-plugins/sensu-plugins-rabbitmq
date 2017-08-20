@@ -14,6 +14,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 - check-rabbitmq-consumers.rb: Added ability to select queues with regular expressions. (@jtduby)
 
 ### Added
+- check-rabbitmq-node-health: Proper node definition support (@Infraded)
 - ruby 2.4 support (@majormoses)
 
 ### Fixed
