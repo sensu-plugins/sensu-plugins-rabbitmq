@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
-## [2017-08-20] - 2017-08-20
+## [3.4.0] - 2017-08-20
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added threading and heartbeat interval options (@bdeo)
 
@@ -156,7 +156,7 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.3.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.4.0...HEAD
 [3.4.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.1.1...3.2.0
