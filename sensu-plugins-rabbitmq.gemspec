@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'bunny',          '2.5.0'
   s.add_runtime_dependency 'amq-protocol',   '2.0.1'
   s.add_runtime_dependency 'inifile',        '3.0.0'
+  s.add_runtime_dependency 'ruby_dig',       '0.0.2'
 
   s.add_development_dependency 'bundler',                   '~> 1.7'
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
