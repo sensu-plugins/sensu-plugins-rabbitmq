@@ -5,6 +5,11 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [3.5.0] - 2017-09-05
+### Changed
+- RabbitMQ module with common code (@rthouvenin)
+- Check and Metrics base classes (@rthouvenin)
+
 ## [3.4.0] - 2017-08-20
 ### Added
 - check-rabbitmq-amqp-alive.rb: Added threading and heartbeat interval options (@bdeo)
@@ -15,8 +20,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Added
  - ruby 2.4 support (@majormoses)
- - RabbitMQ module with common code (@rthouvenin)
- - Check and Metrics base classes (@rthouvenin)
+
 ### Changed
  - metrics-rabbitmq-queue, metrics-rabbitmq-exchange, check-rabbitmq-queue: use the new base classes (@rthouvenin)
 ### Fixed
@@ -159,7 +163,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.4.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.5.0...HEAD
+[3.5.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.4.0...3.5.0
 [3.4.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.1.1...3.2.0
