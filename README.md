@@ -19,6 +19,7 @@
  * bin/check-rabbitmq-node-usage.rb
  * bin/check-rabbitmq-queue-drain-time.rb
  * bin/check-rabbitmq-queue.rb
+ * bin/check-rabbitmq-queues-synchronised.rb
  * bin/check-rabbitmq-stomp-alive.rb
  * bin/metrics-rabbitmq-overview.rb
  * bin/metrics-rabbitmq-queue.rb
