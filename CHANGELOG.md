@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+### Added
+- check-rabbitmq-queues-synchronised.rb: added new check if all mirrored queues are synchronised (@cyrilgdn)
+
+
 ## [3.5.0] - 2017-09-05
 ### Changed
 - RabbitMQ module with common code (@rthouvenin)
