@@ -1,12 +1,15 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
+This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
 
 ### Added
 - check-rabbitmq-queues-synchronised.rb: added new check if all mirrored queues are synchronised (@cyrilgdn)
+
+### Changed
+- updated CHANGELOG guidelines location (@majormoses)
 
 
 ## [3.5.0] - 2017-09-05
