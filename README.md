@@ -31,4 +31,23 @@
 
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
+## Permissions
+
+In order to run these checks you need the following permissions set:
+```
+:conf => '^aliveness-test$',
+:write => '^amq\.default$',
+:read => '.*'
+```
+You must also add the `monitoring` tag.
+
+This can be done like this:
+```
+rabbitmqctl add_user sensu_monitoring $MY_SUPER_LONG_SECURE_PASSWORD
+rabbitmqctl set_permissions  -p / sensu_monitoring "^aliveness-test$" "^amq\.default$" "^(amq\.default|aliveness-test)$"
+rabbitmqctl set_user_tags sensu_monitoring monitoring
+```
+
+**It is highly recommended that you do not give administrator access! and use minimum permissions!**
+
 ## Notes
