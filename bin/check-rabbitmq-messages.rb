@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # Check RabbitMQ Messages
 # ===
@@ -112,7 +113,7 @@ class CheckRabbitMQMessages < Sensu::Plugin::Check::CLI
         password: password,
         ssl: config[:ssl]
       )
-    rescue
+    rescue StandardError
       warning 'Could not connect to rabbitmq'
     end
     rabbitmq_info

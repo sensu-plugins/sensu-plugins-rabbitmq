@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ check amqp alive plugin
 # ===
@@ -142,7 +143,7 @@ class CheckRabbitAMQPAlive < Sensu::Plugin::Check::CLI
       { 'status' => 'critical', 'message' => 'Possible authentication failure' }
     rescue Bunny::TCPConnectionFailed
       { 'status' => 'critical', 'message' => 'TCP connection refused' }
-    rescue => e
+    rescue StandardError => e
       { 'status' => 'unknown', 'message' => e.message }
     end
   end

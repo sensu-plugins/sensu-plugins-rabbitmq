@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
 
 # Check RabbitMQ consumers
 # ===
@@ -109,19 +109,19 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
         password: password,
         ssl: config[:ssl]
       )
-    rescue
+    rescue StandardError
       warning 'could not connect to rabbitmq'
     end
     connection
   end
 
   def return_condition(missing, critical, warning)
-    if critical.count > 0 || missing.count > 0
+    if critical.count.positive? || missing.count.positive?
       message = ''
-      message << "Queues in critical state: #{critical.join(', ')}. " if critical.count > 0
-      message << "Queues missing: #{missing.join(', ')}" if missing.count > 0
+      message << "Queues in critical state: #{critical.join(', ')}. " if critical.count.positive?
+      message << "Queues missing: #{missing.join(', ')}" if missing.count.positive?
       critical(message)
-    elsif warning.count > 0
+    elsif warning.count.positive?
       warning("Queues in warning state: #{warning.join(', ')}")
     else
       ok
@@ -154,7 +154,7 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
         critical.push(queue['name']) if consumers <= config[:critical]
         warn.push(queue['name']) if consumers <= config[:warn]
       end
-    rescue
+    rescue StandardError
       critical 'Could not find any queue, check rabbitmq server'
     end
     return_condition(missing, critical, warn)

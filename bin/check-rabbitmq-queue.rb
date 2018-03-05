@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: false
+
 #
 # Check RabbitMQ Queue Messages
 # ===
@@ -22,13 +23,16 @@
 # for details.
 
 require 'sensu-plugins-rabbitmq'
+require 'sensu-plugins-rabbitmq/check'
+require 'sensu-plugin/check/cli'
 
 # main plugin class
-class CheckRabbitMQMessages < Sensu::Plugin::RabbitMQ::Check
+class CheckRabbitMQQueue < Sensu::Plugin::RabbitMQ::Check
   option :queue,
          description: 'RabbitMQ queue to monitor',
          long: '--queue queue_names',
          required: true,
+         # not sure if there is a better way to handle frozen strings
          proc: proc { |a| a.split(',') }
 
   option :warn,

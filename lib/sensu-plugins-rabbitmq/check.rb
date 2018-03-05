@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require 'sensu-plugin/check/cli'
 require 'sensu-plugins-rabbitmq/rabbitmq'
 

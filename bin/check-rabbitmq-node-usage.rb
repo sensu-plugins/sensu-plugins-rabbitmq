@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby -W0
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ check node health plugin
 # ===
@@ -72,7 +73,7 @@ class CheckRabbitMQNodeUsage < Sensu::Plugin::Check::CLI
          description: 'Resource type',
          required: true,
          long: '--type TYPE',
-         in: %w(mem socket fd proc disk)
+         in: %w[mem socket fd proc disk]
 
   option :memwarn,
          description: 'Warning % of mem usage vs high watermark',
@@ -179,7 +180,7 @@ class CheckRabbitMQNodeUsage < Sensu::Plugin::Check::CLI
     end
 
     { 'status' => output[:status], 'message' => output[:message] }
-  rescue => e
+  rescue StandardError => e
     { 'status' => 'unknown', 'message' => e.message }
   end
 

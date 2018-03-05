@@ -28,3 +28,12 @@ RegexpLiteral:
 
 Style/Documentation:
   Enabled: false
+
+# .match?() was added in ruby 2.4
+Performance/RegexpMatch:
+  Enabled: false
+
+## slow testing is oK
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
