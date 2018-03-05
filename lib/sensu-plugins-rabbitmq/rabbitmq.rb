@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require 'carrot-top'
 require 'inifile'
 
@@ -66,7 +68,7 @@ module Sensu
               password: password,
               ssl: config[:ssl]
             )
-          rescue
+          rescue StandardError
             warning 'could not get rabbitmq info'
           end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sensu-plugin/metric/cli'
 require 'socket'
 require 'sensu-plugins-rabbitmq/rabbitmq'

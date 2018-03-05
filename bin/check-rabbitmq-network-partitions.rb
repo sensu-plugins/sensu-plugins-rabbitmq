@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ Network Partitions Check
 # ===
@@ -68,7 +69,7 @@ class CheckRabbitMQPartitions < Sensu::Plugin::Check::CLI
     ok 'no network partition detected'
   rescue Errno::ECONNREFUSED => e
     critical e.message
-  rescue => e
+  rescue StandardError => e
     unknown e.message
   end
 

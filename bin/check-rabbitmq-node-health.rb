@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ check node health plugin
 # ===
@@ -215,7 +216,7 @@ class CheckRabbitMQNodeHealth < Sensu::Plugin::Check::CLI
       { 'status' => status, 'message' => message }
     rescue Errno::ECONNREFUSED => e
       { 'status' => 'critical', 'message' => e.message }
-    rescue => e
+    rescue StandardError => e
       { 'status' => 'unknown', 'message' => e.message }
     end
   end

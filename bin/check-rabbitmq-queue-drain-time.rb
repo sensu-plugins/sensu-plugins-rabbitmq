@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ Queue Drain Time
 # ===
@@ -106,7 +107,7 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
         password: password,
         ssl: config[:ssl]
       )
-    rescue
+    rescue StandardError
       warning 'could not get rabbitmq queue info'
     end
 
@@ -125,10 +126,10 @@ class CheckRabbitMQQueueDrainTime < Sensu::Plugin::Check::CLI
 
     acquire_rabbitmq_queues.each do |queue|
       # we don't care about empty queues and they'll have an infinite drain time so skip them
-      next if queue['messages'] == 0 || queue['messages'].nil?
+      next if queue['messages'].zero? || queue['messages'].nil?
 
       # handle rate of zero which is an infinite time until empty
-      if queue['backing_queue_status']['avg_egress_rate'].to_f == 0
+      if queue['backing_queue_status']['avg_egress_rate'].to_f.zero?
         crit_queues[queue['name']] = 'Infinite (drain rate = 0)'
         next
       end

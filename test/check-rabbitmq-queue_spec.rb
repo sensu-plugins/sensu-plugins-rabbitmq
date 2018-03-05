@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 # check-rabbitmq-queue_spec
 #
@@ -41,9 +43,9 @@ end
 class RabbitInfoStub
 end
 
-describe CheckRabbitMQMessages, 'run' do
+describe CheckRabbitMQQueue, 'run' do
   let(:check) do
-    CheckRabbitMQMessages.new ['--queue', 'q1,q2']
+    CheckRabbitMQQueue.new ['--queue', 'q1,q2']
   end
 
   it 'should return a warning when the queue does not exist' do

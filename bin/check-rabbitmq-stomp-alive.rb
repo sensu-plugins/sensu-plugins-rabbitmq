@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ check alive plugin
 # ===
@@ -118,7 +119,7 @@ class CheckRabbitStomp < Sensu::Plugin::Check::CLI
       { 'status' => 'critical', 'message' => 'TCP connection refused' }
     rescue Stomp::Error::BrokerException => e
       { 'status' => 'critical', 'message' => "Error from broker. Check auth details? #{e.message}" }
-    rescue => e
+    rescue StandardError => e
       { 'status' => 'unknown', 'message' => "#{e.class}: #{e.message}" }
     end
   end

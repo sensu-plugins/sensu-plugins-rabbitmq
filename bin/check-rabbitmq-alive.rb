@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#  encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # RabbitMQ check alive plugin
 # ===
@@ -115,7 +116,7 @@ class CheckRabbitMQAlive < Sensu::Plugin::Check::CLI
       { 'status' => 'ok', 'message' => 'RabbitMQ server is alive' }
     rescue Errno::ECONNREFUSED => e
       { 'status' => 'critical', 'message' => e.message }
-    rescue => e
+    rescue StandardError => e
       { 'status' => 'unknown', 'message' => e.message }
     end
   end
