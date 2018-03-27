@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [4.0.1] - 2018-03-27
 ### Security
 - updated yard dependency to `~> 0.9.11` per: https://nvd.nist.gov/vuln/detail/CVE-2017-17042 (@majormoses)
 
@@ -183,7 +184,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.1...HEAD
+[4.0.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.6.0..4.0.0
 [3.6.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.5.0...3.6.0
 [3.5.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.4.0...3.5.0
