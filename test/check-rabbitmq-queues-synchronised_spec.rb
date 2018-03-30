@@ -242,4 +242,33 @@ describe CheckRabbitMQQueuesSynchronised, 'run' do
 
     check.run
   end
+
+  it 'should set the verify_ssl param to true by default' do
+    resource = double
+
+    allow(resource).to receive(:get) { json_ok }
+    allow(RestClient::Resource).to receive(:new) do |_, options|
+      expect(options[:verify_ssl]).to eql(true)
+      resource
+    end
+
+    expect(check).to receive(:ok)
+
+    check.run
+  end
+
+  it 'allows overriding the verify_ssl param' do
+    check = CheckRabbitMQQueuesSynchronised.new ['--verify_ssl_off']
+    resource = double
+
+    allow(resource).to receive(:get) { json_ok }
+    allow(RestClient::Resource).to receive(:new) do |_, options|
+      expect(options[:verify_ssl]).to eql(false)
+      resource
+    end
+
+    expect(check).to receive(:ok)
+
+    check.run
+  end
 end

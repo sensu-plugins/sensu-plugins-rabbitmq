@@ -32,6 +32,12 @@ class CheckRabbitMQQueuesSynchronised < Sensu::Plugin::RabbitMQ::Check
          boolean: true,
          default: false
 
+  option :verify_ssl_off,
+         description: 'Do not check validity of SSL cert. Use for self-signed certs, etc (insecure)',
+         long: '--verify_ssl_off',
+         boolean: true,
+         default: false
+
   def run
     @crits = []
 
@@ -64,7 +70,8 @@ class CheckRabbitMQQueuesSynchronised < Sensu::Plugin::RabbitMQ::Check
     url_prefix = config[:ssl] ? 'https' : 'http'
     options = {
       user: config[:username],
-      password: config[:password]
+      password: config[:password],
+      verify_ssl: !config[:verify_ssl_off]
     }
 
     resource = RestClient::Resource.new(

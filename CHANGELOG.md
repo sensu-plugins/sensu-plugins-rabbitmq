@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [4.0.2] - 2018-03-30
+### Changed
+- check-rabbitmq-queues-synchronised.rb: Allow skipping of ssl cert verification, similar to other checks (@mattdoller)
+
 ## [4.0.1] - 2018-03-27
 ### Security
 - updated yard dependency to `~> 0.9.11` per: https://nvd.nist.gov/vuln/detail/CVE-2017-17042 (@majormoses)
