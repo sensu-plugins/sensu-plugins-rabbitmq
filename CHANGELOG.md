@@ -5,8 +5,8 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
-## [4.0.2] - 2018-03-30
-### Changed
+## [4.1.0] - 2018-03-31
+### Added
 - check-rabbitmq-queues-synchronised.rb: Allow skipping of ssl cert verification, similar to other checks (@mattdoller)
 
 ## [4.0.1] - 2018-03-27
@@ -188,7 +188,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.0...HEAD
+[4.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.1...4.1.0
 [4.0.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.6.0..4.0.0
 [3.6.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.5.0...3.6.0
