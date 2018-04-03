@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [4.1.1] - 2018-04-03
 ### Fixed
 - metrics-rabbitmq-queue.rb: fix metrics collection under corrupted RabbitMQ cluster circumstances (@multani)
 
@@ -190,7 +192,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.1...HEAD
+[4.1.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.1...4.1.0
 [4.0.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/3.6.0..4.0.0
