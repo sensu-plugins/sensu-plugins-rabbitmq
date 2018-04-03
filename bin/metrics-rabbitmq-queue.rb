@@ -45,6 +45,11 @@ class RabbitMQQueueMetrics < Sensu::Plugin::RabbitMQ::Metrics
   def run
     timestamp = Time.now.to_i
     acquire_rabbitmq_info(:queues).each do |queue|
+      # The queue might be reported by the API but its metrics somehow
+      # "corrupted". In this case, it doesn't have the ``backing_queue_status``
+      # attribute set.
+      next unless queue['backing_queue_status']
+
       if config[:filter]
         next unless queue['name'].match(config[:filter])
       end
