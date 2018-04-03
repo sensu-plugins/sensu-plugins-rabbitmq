@@ -51,7 +51,11 @@ class RabbitMQQueueMetrics < Sensu::Plugin::RabbitMQ::Metrics
 
       # calculate and output time till the queue is drained in drain metrics
       queue['messages'] ||= 0
-      drain_time = queue['messages'] / queue['backing_queue_status']['avg_egress_rate']
+      drain_time = if queue['backing_queue_status']
+                     queue['messages'] / queue['backing_queue_status']['avg_egress_rate']
+                   else
+                     0.0 / 0.0 # NaN
+                   end
       drain_time = 0 if drain_time.nan? || drain_time.infinite? # 0 rate with 0 messages is 0 time to drain
       queue['drain_time'] = drain_time.to_i
 
