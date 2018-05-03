@@ -13,6 +13,7 @@
  * bin/check-rabbitmq-amqp-alive.rb
  * bin/check-rabbitmq-cluster-health.rb
  * bin/check-rabbitmq-consumers.rb
+ * bin/check-rabbitmq-consumer-utilisation.rb
  * bin/check-rabbitmq-messages.rb
  * bin/check-rabbitmq-network-partitions.rb
  * bin/check-rabbitmq-node-health.rb
