@@ -60,7 +60,7 @@ describe CheckRabbitMQConsumerUtilisation, 'run' do
   it 'should return a warning when the queue does not exist' do
     info_stub = RabbitInfoStub.new
     allow(info_stub).to receive(:method_missing).and_return []
-    allow(check).to receive(:rabbit).and_return info_stub
+    allow(check).to receive(:acquire_rabbitmq_info).and_return info_stub
 
     expect(check).not_to receive(:ok)
     expect(check).to receive(:critical)
@@ -72,7 +72,7 @@ describe CheckRabbitMQConsumerUtilisation, 'run' do
     check = CheckRabbitMQConsumerUtilisation.new ['--queue', 'q1']
     info_stub = RabbitInfoStub.new
     allow(info_stub).to receive(:method_missing).and_return [queue1]
-    allow(check).to receive(:rabbit).and_return info_stub
+    allow(check).to receive(:acquire_rabbitmq_info).and_return info_stub
 
     expect(check).not_to receive(:critical)
     expect(check).not_to receive(:warning)
@@ -85,7 +85,7 @@ describe CheckRabbitMQConsumerUtilisation, 'run' do
     check = CheckRabbitMQConsumerUtilisation.new ['--queue', 'q2']
     info_stub = RabbitInfoStub.new
     allow(info_stub).to receive(:method_missing).and_return [queue2]
-    allow(check).to receive(:rabbit).and_return info_stub
+    allow(check).to receive(:acquire_rabbitmq_info).and_return info_stub
 
     expect(check).not_to receive(:ok)
     expect(check).to receive(:critical)
@@ -97,7 +97,7 @@ describe CheckRabbitMQConsumerUtilisation, 'run' do
     check = CheckRabbitMQConsumerUtilisation.new ['--queue', 'q3']
     info_stub = RabbitInfoStub.new
     allow(info_stub).to receive(:method_missing).and_return [queue3]
-    allow(check).to receive(:rabbit).and_return info_stub
+    allow(check).to receive(:acquire_rabbitmq_info).and_return info_stub
 
     expect(check).not_to receive(:ok)
     expect(check).to receive(:warning)
