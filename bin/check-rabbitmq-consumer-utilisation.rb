@@ -27,39 +27,11 @@
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
 
-require 'sensu-plugin/check/cli'
-require 'carrot-top'
-require 'inifile'
+require 'sensu-plugins-rabbitmq'
+require 'sensu-plugins-rabbitmq/check'
 
 # main plugin class
-class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::Check::CLI
-  option :host,
-         description: 'RabbitMQ management API host',
-         long: '--host HOST',
-         default: 'localhost'
-
-  option :port,
-         description: 'RabbitMQ management API port',
-         long: '--port PORT',
-         proc: proc(&:to_i),
-         default: 15_672
-
-  option :ssl,
-         description: 'Enable SSL for connection to the API',
-         long: '--ssl',
-         boolean: true,
-         default: false
-
-  option :username,
-         description: 'RabbitMQ management API user',
-         long: '--username USER',
-         default: 'guest'
-
-  option :password,
-         description: 'RabbitMQ management API password',
-         long: '--password PASSWORD',
-         default: 'guest'
-
+class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
   option :queue,
          description: 'Comma separated list of RabbitMQ queues to monitor.',
          long: '--queue queue_name',
@@ -90,36 +62,6 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::Check::CLI
          proc: proc(&:to_f),
          default: 0.5
 
-  option :ini,
-         description: 'Configuration ini file',
-         short: '-i',
-         long: '--ini VALUE'
-
-  def rabbit
-    begin
-      if config[:ini]
-        ini = IniFile.load(config[:ini])
-        section = ini['auth']
-        username = section['username']
-        password = section['password']
-      else
-        username = config[:username]
-        password = config[:password]
-      end
-
-      connection = CarrotTop.new(
-        host: config[:host],
-        port: config[:port],
-        user: username,
-        password: password,
-        ssl: config[:ssl]
-      )
-    rescue StandardError
-      warning 'could not connect to rabbitmq'
-    end
-    connection
-  end
-
   def return_condition(missing, critical, warning)
     if critical.count > 0 || missing.count > 0
       message = ''
@@ -142,9 +84,9 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::Check::CLI
               end
     critical = []
     warn = []
-
+    rabbitmq = acquire_rabbitmq_info
     begin
-      rabbit.queues.each do |queue|
+      rabbitmq.queues.each do |queue|
         # if specific queues were passed only monitor those.
         # if specific queues to exclude were passed then skip those
         if config[:regex]
