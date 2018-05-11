@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Check RabbitMQ consumer utilisation
 # ===
@@ -64,10 +65,10 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
 
   def return_condition(missing, critical, warning)
     if critical.count > 0 || missing.count > 0
-      message = ''
+      message = []
       message << "Queues in critical state: #{critical.join(', ')}. " if critical.count > 0
       message << "Queues missing: #{missing.join(', ')}" if missing.count > 0
-      critical(message)
+      critical(message.join("\n"))
     elsif warning.count > 0
       warning("Queues in warning state: #{warning.join(', ')}")
     else
@@ -90,7 +91,11 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
         # if specific queues were passed only monitor those.
         # if specific queues to exclude were passed then skip those
         if config[:regex]
-          next unless queue['name'] =~ /#{config[:queue].first}/
+          if config[:queue] && config[:exclude]
+            next unless queue['name'] =~ /#{config[:queue].first}/ && queue['name'] !~ /#{config[:exclude].first}/
+          else
+            next unless queue['name'] =~ /#{config[:queue].first}/
+          end
         elsif config[:queue]
           next unless config[:queue].include?(queue['name'])
         elsif config[:exclude]
