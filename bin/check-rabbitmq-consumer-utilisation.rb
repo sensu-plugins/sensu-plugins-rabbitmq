@@ -33,21 +33,19 @@ require 'sensu-plugins-rabbitmq/check'
 
 # main plugin class
 class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
-  option :queue,
-         description: 'Comma separated list of RabbitMQ queues to monitor.',
-         long: '--queue queue_name',
-         proc: proc { |q| q.split(',') }
-
-  option :exclude,
-         description: 'Comma separated list of RabbitMQ queues to NOT monitor.  All others will be monitored.',
-         long: '--exclude queue_name',
-         proc: proc { |q| q.split(',') }
-
   option :regex,
          description: 'Treat the --queue flag as a regular expression.',
          long: '--regex',
          boolean: true,
          default: false
+
+  option :queue,
+         description: 'Comma separated list of RabbitMQ queues to monitor.',
+         long: '--queue queue_name'
+
+  option :exclude,
+         description: 'Comma separated list of RabbitMQ queues to NOT monitor.  All others will be monitored.',
+         long: '--exclude queue_name'
 
   option :warn,
          short: '-w CONSUMER_UTILISATION',
@@ -62,6 +60,12 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
          description: 'CRITICAL consumer utilisation threshold',
          proc: proc(&:to_f),
          default: 0.5
+
+  def determine_param(input)
+    return [] if input.nil?
+    return [input] if config[:regex]
+    input.split(',')
+  end
 
   def return_condition(missing, critical, warning)
     if critical.count > 0 || missing.count > 0
@@ -81,7 +85,7 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
     missing = if config[:regex]
                 []
               else
-                config[:queue] || []
+                determine_param(config[:queue]) || []
               end
     critical = []
     warn = []
@@ -92,14 +96,14 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
         # if specific queues to exclude were passed then skip those
         if config[:regex]
           if config[:queue] && config[:exclude]
-            next unless queue['name'] =~ /#{config[:queue].first}/ && queue['name'] !~ /#{config[:exclude].first}/
+            next unless queue['name'] =~ /#{determine_param(config[:queue]).first}/ && queue['name'] !~ /#{determine_param(config[:exclude]).first}/
           else
-            next unless queue['name'] =~ /#{config[:queue].first}/
+            next unless queue['name'] =~ /#{determine_param(config[:queue]).first}/
           end
         elsif config[:queue]
-          next unless config[:queue].include?(queue['name'])
+          next unless determine_param(config[:queue]).include?(queue['name'])
         elsif config[:exclude]
-          next if config[:exclude].include?(queue['name'])
+          next if determine_param(config[:exclude]).include?(queue['name'])
         end
         missing.delete(queue['name'])
         consumer_util = queue['consumer_utilisation'] || 0
