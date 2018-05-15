@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby -W0
-# frozen_string_literal: true
 
 #
 # RabbitMQ check node health plugin

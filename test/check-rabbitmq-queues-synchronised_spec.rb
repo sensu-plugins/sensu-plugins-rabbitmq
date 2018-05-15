@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 #
 # check-rabbitmq-queues-synchronised_spec
