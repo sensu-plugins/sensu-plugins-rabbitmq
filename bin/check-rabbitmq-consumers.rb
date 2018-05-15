@@ -117,7 +117,7 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
 
   def return_condition(missing, critical, warning)
     if critical.count.positive? || missing.count.positive?
-      message = ''
+      message = ''.dup
       message << "Queues in critical state: #{critical.join(', ')}. " if critical.count.positive?
       message << "Queues missing: #{missing.join(', ')}" if missing.count.positive?
       critical(message)
