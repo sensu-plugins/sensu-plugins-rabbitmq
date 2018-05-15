@@ -61,7 +61,7 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
          proc: proc(&:to_f),
          default: 0.5
 
-  def determine_param(input)
+  def queue_list_builder(input)
     return [] if input.nil?
     return [input] if config[:regex]
     input.split(',')
@@ -82,10 +82,12 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
 
   def run
     # create arrays to hold failures
+    queue_list = queue_list_builder(config[:queue])
+    exclude_list = queue_list_builder(config[:exclude])
     missing = if config[:regex]
                 []
               else
-                determine_param(config[:queue]) || []
+                queue_list || []
               end
     critical = []
     warn = []
@@ -96,14 +98,14 @@ class CheckRabbitMQConsumerUtilisation < Sensu::Plugin::RabbitMQ::Check
         # if specific queues to exclude were passed then skip those
         if config[:regex]
           if config[:queue] && config[:exclude]
-            next unless queue['name'] =~ /#{determine_param(config[:queue]).first}/ && queue['name'] !~ /#{determine_param(config[:exclude]).first}/
+            next unless queue['name'] =~ /#{queue_list.first}/ && queue['name'] !~ /#{exclude_list.first}/
           else
-            next unless queue['name'] =~ /#{determine_param(config[:queue]).first}/
+            next unless queue['name'] =~ /#{queue_list.first}/
           end
         elsif config[:queue]
-          next unless determine_param(config[:queue]).include?(queue['name'])
+          next unless queue_list.include?(queue['name'])
         elsif config[:exclude]
-          next if determine_param(config[:exclude]).include?(queue['name'])
+          next if exclude_list.include?(queue['name'])
         end
         missing.delete(queue['name'])
         consumer_util = queue['consumer_utilisation'] || 0
