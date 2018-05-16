@@ -83,6 +83,12 @@ module Sensu
           result_info
         end
 
+        def queue_list_builder(input)
+          return [] if input.nil?
+          return [input] if config[:regex]
+          input.split(',')
+        end
+
         def self.included(receiver)
           receiver.extend(Sensu::Plugin::RabbitMQ::Options)
           receiver.add_common_options
