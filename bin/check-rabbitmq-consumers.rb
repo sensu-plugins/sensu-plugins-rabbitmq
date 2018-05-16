@@ -18,58 +18,29 @@
 # LICENSE:
 # Copyright 2014 Daniel Kerwin <d.kerwin@gini.net>
 # Copyright 2014 Tim Smith <tim@cozy.co>
+# Copyright 2018 Mike Murray <37150283+monkey670@users.noreply.github.com>
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE
 # for details.
 
-require 'sensu-plugin/check/cli'
-require 'carrot-top'
-require 'inifile'
+require 'sensu-plugins-rabbitmq'
+require 'sensu-plugins-rabbitmq/check'
 
 # main plugin class
-class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
-  option :host,
-         description: 'RabbitMQ management API host',
-         long: '--host HOST',
-         default: 'localhost'
-
-  option :port,
-         description: 'RabbitMQ management API port',
-         long: '--port PORT',
-         proc: proc(&:to_i),
-         default: 15_672
-
-  option :ssl,
-         description: 'Enable SSL for connection to the API',
-         long: '--ssl',
-         boolean: true,
-         default: false
-
-  option :username,
-         description: 'RabbitMQ management API user',
-         long: '--username USER',
-         default: 'guest'
-
-  option :password,
-         description: 'RabbitMQ management API password',
-         long: '--password PASSWORD',
-         default: 'guest'
-
-  option :queue,
-         description: 'Comma separated list of RabbitMQ queues to monitor.',
-         long: '--queue queue_name',
-         proc: proc { |q| q.split(',') }
-
-  option :exclude,
-         description: 'Comma separated list of RabbitMQ queues to NOT monitor.  All others will be monitored.',
-         long: '--exclude queue_name',
-         proc: proc { |q| q.split(',') }
-
+class CheckRabbitMQConsumers < Sensu::Plugin::RabbitMQ::Check
   option :regex,
          description: 'Treat the --queue flag as a regular expression.',
          long: '--regex',
          boolean: true,
          default: false
+
+  option :queue,
+         description: 'Comma separated list of RabbitMQ queues to monitor.',
+         long: '--queue queue_name'
+
+  option :exclude,
+         description: 'Comma separated list of RabbitMQ queues to NOT monitor.  All others will be monitored.',
+         long: '--exclude queue_name'
 
   option :warn,
          short: '-w NUM_CONSUMERS',
@@ -85,43 +56,19 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 2
 
-  option :ini,
-         description: 'Configuration ini file',
-         short: '-i',
-         long: '--ini VALUE'
-
-  def rabbit
-    begin
-      if config[:ini]
-        ini = IniFile.load(config[:ini])
-        section = ini['auth']
-        username = section['username']
-        password = section['password']
-      else
-        username = config[:username]
-        password = config[:password]
-      end
-
-      connection = CarrotTop.new(
-        host: config[:host],
-        port: config[:port],
-        user: username,
-        password: password,
-        ssl: config[:ssl]
-      )
-    rescue StandardError
-      warning 'could not connect to rabbitmq'
-    end
-    connection
+  def queue_list_builder(input)
+    return [] if input.nil?
+    return [input] if config[:regex]
+    input.split(',')
   end
 
   def return_condition(missing, critical, warning)
-    if critical.count.positive? || missing.count.positive?
-      message = ''
-      message << "Queues in critical state: #{critical.join(', ')}. " if critical.count.positive?
-      message << "Queues missing: #{missing.join(', ')}" if missing.count.positive?
-      critical(message)
-    elsif warning.count.positive?
+    if critical.count > 0 || missing.count > 0
+      message = []
+      message << "Queues in critical state: #{critical.join(', ')}. " if critical.count > 0
+      message << "Queues missing: #{missing.join(', ')}" if missing.count > 0
+      critical(message.join("\n"))
+    elsif warning.count > 0
       warning("Queues in warning state: #{warning.join(', ')}")
     else
       ok
@@ -129,30 +76,36 @@ class CheckRabbitMQConsumers < Sensu::Plugin::Check::CLI
   end
 
   def run
+    queue_list = queue_list_builder(config[:queue])
+    exclude_list = queue_list_builder(config[:exclude])
     # create arrays to hold failures
     missing = if config[:regex]
                 []
               else
-                config[:queue] || []
+                queue_list || []
               end
     critical = []
     warn = []
-
+    rabbitmq = acquire_rabbitmq_info
     begin
-      rabbit.queues.each do |queue|
+      rabbitmq.queues.each do |queue|
         # if specific queues were passed only monitor those.
         # if specific queues to exclude were passed then skip those
         if config[:regex]
-          next unless queue['name'] =~ /#{config[:queue].first}/
+          if config[:queue] && config[:exclude]
+            next unless queue['name'] =~ /#{queue_list.first}/ && queue['name'] !~ /#{exclude_list.first}/
+          else
+            next unless queue['name'] =~ /#{queue_list.first}/
+          end
         elsif config[:queue]
-          next unless config[:queue].include?(queue['name'])
+          next unless queue_list.include?(queue['name'])
         elsif config[:exclude]
-          next if config[:exclude].include?(queue['name'])
+          next if exclude_list.include?(queue['name'])
         end
         missing.delete(queue['name'])
         consumers = queue['consumers'] || 0
-        critical.push(queue['name']) if consumers <= config[:critical]
-        warn.push(queue['name']) if consumers <= config[:warn]
+        critical.push("#{queue['name']}:#{queue['consumers']}-Consumers") if consumers <= config[:critical]
+        warn.push("#{queue['name']}:#{queue['consumers']}-Consumers") if consumers <= config[:warn]
       end
     rescue StandardError
       critical 'Could not find any queue, check rabbitmq server'
