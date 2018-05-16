@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [5.1.0] - 2018-05-15
 ### Added
 - check-rabbitmq-consumer-utilisation.rb: Added new check for consumer utilisation. Seeded from check-rabbitmq-consumers.rb. (@monkey670)
 
@@ -198,7 +200,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.1.0...HEAD
+[5.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.1...5.0.0
 [4.1.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.0.1...4.1.0
