@@ -56,12 +56,6 @@ class CheckRabbitMQConsumers < Sensu::Plugin::RabbitMQ::Check
          proc: proc(&:to_i),
          default: 2
 
-  def queue_list_builder(input)
-    return [] if input.nil?
-    return [input] if config[:regex]
-    input.split(',')
-  end
-
   def return_condition(missing, critical, warning)
     if critical.count > 0 || missing.count > 0
       message = []
