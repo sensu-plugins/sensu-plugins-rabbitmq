@@ -49,11 +49,11 @@ describe Sensu::Plugin::RabbitMQ do
     @dummy_class.extend(Sensu::Plugin::RabbitMQ::Common)
   end
 
-  it 'Acquire Rabbitmq info resuce' do
+  it 'Acquire Rabbitmq info gets rescued' do
     allow(@dummy_class).to receive(:warning)
   end
 
-  it 'Acquire Rabbitmq info no config' do
+  it 'Acquire Rabbitmq info missing config' do
     allow(@dummy_class).to receive(:config).and_return(nil)
     allow(@dummy_class).to receive(:warning) do |arg|
       expect(arg).to eq('could not get rabbitmq info')
