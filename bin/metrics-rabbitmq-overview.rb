@@ -21,7 +21,12 @@
 #    host.rabbitmq.message_stats.deliver_no_ack.count  6661111 1344186404
 #    host.rabbitmq.message_stats.deliver_no_ack.rate 24.6867565643405  1344186404
 #    host.rabbitmq.message_stats.deliver_get.count 6661111 1344186404
-#    host.rabbitmq.message_stats.deliver_get.rate  24.6867565643405  1344186404#
+#    host.rabbitmq.message_stats.deliver_get.rate  24.6867565643405  1344186404
+#    host.rabbitmq.object_totals.channels.count 138 1344186404
+#    host.rabbitmq.object_totals.connections.count 88 1344186404
+#    host.rabbitmq.object_totals.consumers.count 127 1344186404
+#    host.rabbitmq.object_totals.exchanges.count 184 1344186404
+#    host.rabbitmq.object_totals.queues.count 90 1344186404
 #
 # PLATFORMS:
 #   Linux, BSD, Solaris
@@ -154,6 +159,15 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
         output "#{config[:scheme]}.message_stats.deliver_get.rate", overview['message_stats']['deliver_get_details']['rate'], timestamp
       end
     end
+
+    if overview.key?('object_totals') && !overview['object_totals'].empty?
+      %w[channels connections consumers exchanges queues].each do |key|
+        if overview['object_totals'].include?(key)
+          output "#{config[:scheme]}.object_totals.#{key}.count", overview['object_totals'][key], timestamp
+        end
+      end
+    end
+
     ok
   end
 end
