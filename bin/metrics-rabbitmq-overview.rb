@@ -119,44 +119,22 @@ class RabbitMQMetrics < Sensu::Plugin::Metric::CLI::Graphite
 
     # overview['queue_totals']['messages']
     if overview.key?('queue_totals') && !overview['queue_totals'].empty?
-      output "#{config[:scheme]}.queue_totals.messages.count", overview['queue_totals']['messages'], timestamp
-      output "#{config[:scheme]}.queue_totals.messages.rate", overview['queue_totals']['messages_details']['rate'], timestamp
-
-      # overview['queue_totals']['messages_unacknowledged']
-      output "#{config[:scheme]}.queue_totals.messages_unacknowledged.count", overview['queue_totals']['messages_unacknowledged'], timestamp
-      output "#{config[:scheme]}.queue_totals.messages_unacknowledged.rate", overview['queue_totals']['messages_unacknowledged_details']['rate'], timestamp
-
-      # overview['queue_totals']['messages_ready']
-      output "#{config[:scheme]}.queue_totals.messages_ready.count", overview['queue_totals']['messages_ready'], timestamp
-      output "#{config[:scheme]}.queue_totals.messages_ready.rate", overview['queue_totals']['messages_ready_details']['rate'], timestamp
+      %w[messages messages_ready messages_unacknowledged].each do |key|
+        output "#{config[:scheme]}.queue_totals.#{key}.count", overview['queue_totals'][key], timestamp
+        output "#{config[:scheme]}.queue_totals.#{key}.rate", overview['queue_totals']["#{key}_details"]['rate'], timestamp
+      end
     end
 
     if overview.key?('message_stats') && !overview['message_stats'].empty?
-      # overview['message_stats']['publish']
-      if overview['message_stats'].include?('publish')
-        output "#{config[:scheme]}.message_stats.publish.count", overview['message_stats']['publish'], timestamp
-      end
-      if overview['message_stats'].include?('publish_details') &&
-         overview['message_stats']['publish_details'].include?('rate')
-        output "#{config[:scheme]}.message_stats.publish.rate", overview['message_stats']['publish_details']['rate'], timestamp
-      end
-
-      # overview['message_stats']['deliver_no_ack']
-      if overview['message_stats'].include?('deliver_no_ack')
-        output "#{config[:scheme]}.message_stats.deliver_no_ack.count", overview['message_stats']['deliver_no_ack'], timestamp
-      end
-      if overview['message_stats'].include?('deliver_no_ack_details') &&
-         overview['message_stats']['deliver_no_ack_details'].include?('rate')
-        output "#{config[:scheme]}.message_stats.deliver_no_ack.rate", overview['message_stats']['deliver_no_ack_details']['rate'], timestamp
-      end
-
-      # overview['message_stats']['deliver_get']
-      if overview['message_stats'].include?('deliver_get')
-        output "#{config[:scheme]}.message_stats.deliver_get.count", overview['message_stats']['deliver_get'], timestamp
-      end
-      if overview['message_stats'].include?('deliver_get_details') &&
-         overview['message_stats']['deliver_get_details'].include?('rate')
-        output "#{config[:scheme]}.message_stats.deliver_get.rate", overview['message_stats']['deliver_get_details']['rate'], timestamp
+      %w[deliver_get deliver_no_ack publish].each do |key|
+        # overview['message_stats']['publish']
+        if overview['message_stats'].include?(key)
+          output "#{config[:scheme]}.message_stats.#{key}.count", overview['message_stats'][key], timestamp
+        end
+        if overview['message_stats'].include?("#{key}_details") &&
+           overview['message_stats']["#{key}_details"].include?('rate')
+          output "#{config[:scheme]}.message_stats.#{key}.rate", overview['message_stats']["#{key}_details"]['rate'], timestamp
+        end
       end
     end
 
