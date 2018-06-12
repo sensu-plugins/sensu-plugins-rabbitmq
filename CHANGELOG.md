@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+### Changed
+- metrics-rabbitmq-overview.rb: add total objects metrics (channels, connections, consumers, etc.). (@multani)
+
 ## [5.2.0] - 2018-05-16
 ### Changed
 - check-rabbitmq-consumers.rb: Backport recommended code updates. Add consumer count to warn/critical message. (@monkey670)
