@@ -5,7 +5,8 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
-### Changed
+## [5.3.0] - 2018-06-21
+### Added
 - metrics-rabbitmq-overview.rb: add total objects metrics (channels, connections, consumers, etc.). (@multani)
 
 ## [5.2.0] - 2018-05-16
@@ -207,7 +208,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.2.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.3.0...HEAD
+[5.3.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.2.0...5.3.0
 [5.2.0]:https://github.com/sensu-plugins/sensu-plugins-rabbitmq/\compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/4.1.1...5.0.0
