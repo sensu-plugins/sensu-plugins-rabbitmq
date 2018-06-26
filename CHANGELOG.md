@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Changed
+- bump version of rest-client to 2.0.2.  This should fix the issue where multiple versions of that gem would be loaded when running the rabbitmq plugin alongside the sensu http plugin. (@mattdoller)
 
 ## [5.4.0] - 2018-06-21
 ### Changed
