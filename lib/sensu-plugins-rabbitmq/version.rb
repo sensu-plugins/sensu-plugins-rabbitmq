@@ -2,8 +2,8 @@
 
 module SensuPluginsRabbitMQ
   module Version
-    MAJOR = 5
-    MINOR = 4
+    MAJOR = 6
+    MINOR = 0
     PATCH = 0
 
     VER_STRING = [MAJOR, MINOR, PATCH].compact.join('.')
