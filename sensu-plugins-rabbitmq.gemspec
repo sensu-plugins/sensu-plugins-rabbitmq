@@ -36,7 +36,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
 
   s.add_runtime_dependency 'sensu-plugin',   '~> 2.0'
 
-  s.add_runtime_dependency 'amq-protocol',   '2.0.1'
+  s.add_runtime_dependency 'amq-protocol',   '= 2.2.0'
   s.add_runtime_dependency 'bunny',          '2.5.0'
   s.add_runtime_dependency 'carrot-top',     '0.0.7'
   s.add_runtime_dependency 'inifile',        '3.0.0'
