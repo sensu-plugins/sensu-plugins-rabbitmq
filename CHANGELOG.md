@@ -4,10 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [7.0.0] - 2018-12-15
 ### Breaking Changes
-- bump version of rest-client to 2.0.2.  This should fix the issue where multiple versions of that gem would be loaded when running the rabbitmq plugin alongside the sensu http plugin. (@mattdoller)
 - bumped `sensu-plugin` runtime dependency from `~> 1.2` to `~>` you can read about the relevant important bits [here](https://github.com/sensu-plugins/sensu-plugin/blob/3.0.0/CHANGELOG.md#v200---2017-03-29) and [here](https://github.com/sensu-plugins/sensu-plugin/blob/3.0.0/CHANGELOG.md#v200---2017-03-29) (@dependabot) (@majormoses)
 - removed support for ruby versions `< 2.3` as they are EOL (@majormoses)
+
+### Changed
+- bumped dev dependency of `rake` from `~> 10.5` to `~> 12.3` (@dependabot)
+- bumped dev dependency of `github-markup` from `~> 1.3` to `~> 3.0` (@dependabot)
+- bumped runtime dependency of `bunny` from `2.5.0` to `2.6.4` (@dependabot)
+## [6.0.0] - 2018-06-27
+### Breaking Changes
+- bump version of rest-client to 2.0.2.  This should fix the issue where multiple versions of that gem would be loaded when running the rabbitmq plugin alongside the sensu http plugin. (@mattdoller)
 
 ## [5.4.0] - 2018-06-21
 ### Changed
@@ -216,7 +225,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/6.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.0...HEAD
+[7.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/6.0.0...7.0.0
 [6.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.4.0...6.0.0
 [5.4.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.3.0...5.4.0
 [5.3.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.2.0...5.3.0
