@@ -6,6 +6,8 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 ## [Unreleased]
 ### Breaking Changes
 - bump version of rest-client to 2.0.2.  This should fix the issue where multiple versions of that gem would be loaded when running the rabbitmq plugin alongside the sensu http plugin. (@mattdoller)
+- bumped `sensu-plugin` runtime dependency from `~> 1.2` to `~>` you can read about the relevant important bits [here](https://github.com/sensu-plugins/sensu-plugin/blob/3.0.0/CHANGELOG.md#v200---2017-03-29) and [here](https://github.com/sensu-plugins/sensu-plugin/blob/3.0.0/CHANGELOG.md#v200---2017-03-29) (@dependabot) (@majormoses)
+- removed support for ruby versions `< 2.3` as they are EOL (@majormoses)
 
 ## [5.4.0] - 2018-06-21
 ### Changed
