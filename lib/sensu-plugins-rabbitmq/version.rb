@@ -2,7 +2,7 @@
 
 module SensuPluginsRabbitMQ
   module Version
-    MAJOR = 6
+    MAJOR = 7
     MINOR = 0
     PATCH = 0
 
