@@ -4,7 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
-### Changed
+
+## [7.0.1] - 2019-04-04
+### Fixed
 - check-rabbitmq-queue-drain-time.rb: perform nil check before checking if zero. bug fix for null pointer exception (@bob2build)
 
 
@@ -228,7 +230,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.1...HEAD
+[7.0.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/6.0.0...7.0.0
 [6.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.4.0...6.0.0
 [5.4.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.3.0...5.4.0
