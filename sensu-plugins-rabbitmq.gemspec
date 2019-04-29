@@ -34,7 +34,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsRabbitMQ::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin',   '~> 3.0'
+  s.add_runtime_dependency 'sensu-plugin',   '~> 4.0'
 
   s.add_runtime_dependency 'amq-protocol',   '2.0.1'
   s.add_runtime_dependency 'bunny',          '= 2.6.4'
