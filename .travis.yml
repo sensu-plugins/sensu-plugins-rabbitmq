@@ -1,4 +1,5 @@
 language: ruby
+services: docker
 cache:
 - bundler
 install:
@@ -17,8 +18,10 @@ script:
 - bundle exec rake default
 - gem build sensu-plugins-rabbitmq.gemspec
 - gem install sensu-plugins-rabbitmq-*.gem
+before_deploy:
+- bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai || echo 'bonsai/ exists, skipping git clone'"
 deploy:
-  provider: rubygems
+- provider: rubygems
   api_key:
     secure: mrLLg5dsJfh8y+HnnOpciBTCA7ZO+4l5ljEpVDQeYTaIye1H/gVGj+DXCBBlO6GdZjDeGnluh/C+nqR+WIwrUGk6Ks/4NBRcoAvlN2L7IOapunjyy546Cwu8OGkPhyvGtGooDyFfhVqPIYYNG0aMvopWp5QKNeLzhX4DLN576Yg=
   gem: sensu-plugins-rabbitmq
@@ -28,3 +31,10 @@ deploy:
     rvm: 2.3.0
     rvm: 2.4.1
     repo: sensu-plugins/sensu-plugins-rabbitmq
+- provider: script
+  script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-rabbitmq
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    rvm: 2.4.1
