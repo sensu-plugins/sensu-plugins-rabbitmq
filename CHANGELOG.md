@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [8.0.0] - 2019-04-29
 ### Breaking Changes
 - Bump `sensu-plugin` dependency from `~> 3.0` to `~> 4.0` you can read the changelog entries for [4.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#400---2018-02-17), [3.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#300---2018-12-04), and [2.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29)
 
@@ -236,7 +238,8 @@ NOTE: this release changes the option flags in check-rabbitmq-node-health.rb to 
 - Remove copy paste errors in the Readme
 - Removed Rubygems require Ruby 1.8.7 backwards compatibility from all plugins
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/8.0.0...HEAD
+[8.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.1...8.0.0
 [7.0.1]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/6.0.0...7.0.0
 [6.0.0]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/compare/5.4.0...6.0.0
