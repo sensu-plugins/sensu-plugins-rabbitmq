@@ -98,12 +98,26 @@ Gathers all the available exchange metrics.
 **check-rabbitmq-alive**
 ```
 Usage: check-rabbitmq-alive.rb (options)
+    -w, --host HOST                  RabbitMQ host
+    -i, --ini VALUE                  Configuration ini file
+    -p, --password PASSWORD          RabbitMQ password
+    -P, --port PORT                  RabbitMQ API port
+        --ssl                        Enable SSL for connection to RabbitMQ
+    -u, --username USERNAME          RabbitMQ username
+        --verify_ssl_off             Do not check validity of SSL cert. Use for self-signed certs, etc (insecure)
+    -v, --vhost VHOST                RabbitMQ vhost
 ```
 
 **metrics-rabbitmq-overview**
 ```
 Usage: metrics-rabbitmq-overview.rb (options)
-
+        --host HOST                  RabbitMQ management API host
+    -i, --ini VALUE                  Configuration ini file
+        --password PASSWORD          RabbitMQ management API password
+        --port PORT                  RabbitMQ management API port
+        --scheme SCHEME              Metric naming scheme, text to prepend to $queue_name.$metric
+        --ssl                        Enable SSL for connection to the API
+        --username USER              RabbitMQ management API user
 ```
 
 ## Configuration
