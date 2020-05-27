@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 #
 # RabbitMQ check amqp alive plugin
